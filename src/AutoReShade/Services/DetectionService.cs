@@ -25,7 +25,7 @@ public sealed class DetectionService : IDisposable
     private Thread? _thread;
     private TesseractOcr? _ocr;
     private MapNameMatcher _matcher;
-    private LobbyScreenMatcher _lobby;
+    private MatchEndMatcher _endScreens;
     private MapDetector? _detector;
     private int _debugCaptureCount;
 
@@ -36,7 +36,7 @@ public sealed class DetectionService : IDisposable
         _game = game;
         _overlayArea = overlayArea;
         _matcher = new MapNameMatcher(catalog);
-        _lobby = new LobbyScreenMatcher(catalog);
+        _endScreens = new MatchEndMatcher(catalog);
     }
 
     public string? EngineError { get; private set; }
@@ -50,8 +50,8 @@ public sealed class DetectionService : IDisposable
     /// <summary>Raised on the detection thread when a different map has been confirmed.</summary>
     public event Action<MapInfo>? MapConfirmed;
 
-    /// <summary>Raised on the detection thread when the player is back in the lobby (the match is over).</summary>
-    public event Action? LobbyConfirmed;
+    /// <summary>Raised on the detection thread when the results screen or the lobby shows that the match is over.</summary>
+    public event Action? MatchEnded;
 
     public void Start()
     {
@@ -70,10 +70,10 @@ public sealed class DetectionService : IDisposable
         {
             var current = _detector?.CurrentMap;
             _matcher = new MapNameMatcher(catalog);
-            _lobby = new LobbyScreenMatcher(catalog);
+            _endScreens = new MatchEndMatcher(catalog);
             if (_ocr is not null)
             {
-                _detector = new MapDetector(_matcher, _lobby, _ocr);
+                _detector = new MapDetector(_matcher, _endScreens, _ocr);
                 _detector.SetCurrentMap(current is null ? null : catalog.FindMap(current.Id));
             }
         }
@@ -90,7 +90,7 @@ public sealed class DetectionService : IDisposable
             using var crop = fullFrame.Clone(rect, PixelFormat.Format24bppRgb);
             using (var prepared = FramePreprocessor.Prepare(crop, fullFrame.Height, threshold))
                 preparedPreview = new Bitmap(prepared.Image);
-            var tester = new MapDetector(_matcher, _lobby, _ocr) { Threshold = threshold };
+            var tester = new MapDetector(_matcher, _endScreens, _ocr) { Threshold = threshold };
             return tester.ProcessRegion(crop, fullFrame.Height);
         }
     }
@@ -123,18 +123,21 @@ public sealed class DetectionService : IDisposable
     private void ReadOnce(AppSettings settings, GameSnapshot snapshot)
     {
         var client = ScreenCapture.ToRectangle(snapshot.ClientArea);
-        var region = settings.Detection.Region.ToPixels(client.Width, client.Height);
-        region.Offset(client.Left, client.Top);
-
-        using var capture = ScreenCapture.Capture(region);
-        ScreenCapture.MaskOut(capture, region, _overlayArea());
+        using var capture = CaptureGameRegion(client, settings.Detection.Region);
 
         DetectionResult result;
+        var resultsScreenSeen = false;
         lock (_engineLock)
         {
             if (!EnsureEngine() || _detector is null) return;
             _detector.Threshold = settings.Detection.BrightnessThreshold;
             result = _detector.ProcessRegion(capture, client.Height);
+            // The results screen only matters while a map is active, so the extra read costs nothing in menus.
+            if (_detector.CurrentMap is not null)
+            {
+                using var button = CaptureGameRegion(client, DetectionRegion.ContinueButton);
+                resultsScreenSeen = _detector.ProcessContinueButtonRegion(button, client.Height);
+            }
         }
 
         if (!result.SkippedOcr)
@@ -151,11 +154,26 @@ public sealed class DetectionService : IDisposable
             MapConfirmed?.Invoke(map);
         }
 
+        if (resultsScreenSeen)
+        {
+            Log.Info("Results screen; the match is over");
+            MatchEnded?.Invoke();
+        }
         if (result.LobbyConfirmed)
         {
             Log.Info("Back in the lobby; the match is over");
-            LobbyConfirmed?.Invoke();
+            MatchEnded?.Invoke();
         }
+    }
+
+    /// <summary>Screenshots part of the game window, with the overlay blanked out so it is never read.</summary>
+    private Bitmap CaptureGameRegion(Rectangle client, DetectionRegion region)
+    {
+        var rect = region.ToPixels(client.Width, client.Height);
+        rect.Offset(client.Left, client.Top);
+        var capture = ScreenCapture.Capture(rect);
+        ScreenCapture.MaskOut(capture, rect, _overlayArea());
+        return capture;
     }
 
     private bool EnsureEngine()
@@ -168,7 +186,7 @@ public sealed class DetectionService : IDisposable
             TesseractOcr.EnsureBuiltInLanguage(_paths.TessdataDir);
             var languages = TesseractOcr.AvailableLanguages(_paths.TessdataDir);
             _ocr = new TesseractOcr(_paths.TessdataDir, languages);
-            _detector = new MapDetector(_matcher, _lobby, _ocr);
+            _detector = new MapDetector(_matcher, _endScreens, _ocr);
             EngineLanguages = _ocr.Languages;
             Log.Info($"OCR engine ready (languages: {_ocr.Languages})");
             return true;

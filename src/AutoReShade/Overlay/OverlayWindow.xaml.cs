@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using AutoReShade.Core;
@@ -31,7 +32,6 @@ public partial class OverlayWindow : Window
         {
             _toastTimer.Stop();
             _toastActive = false;
-            ToastEnded?.Invoke();
         };
         _topmostTimer.Tick += (_, _) => KeepOnTop();
         MouseLeftButtonDown += OnMouseLeftButtonDown;
@@ -43,7 +43,6 @@ public partial class OverlayWindow : Window
     public event Action<double, double, double>? Adjusted;
 
     public event Action? AdjustFinished;
-    public event Action? ToastEnded;
 
     public bool HasClock => ClockImage.Source is not null;
     public bool IsAdjusting => _adjusting;
@@ -136,7 +135,7 @@ public partial class OverlayWindow : Window
             return;
         }
 
-        Place(settings, monitor, clockShown || _adjusting);
+        Place(settings, monitor, clockShown || _adjusting, toastShown);
         if (!IsVisible) Show();
         if (!_topmostTimer.IsEnabled)
         {
@@ -148,23 +147,23 @@ public partial class OverlayWindow : Window
             : null;
     }
 
-    private void Place(OverlaySettings settings, Win32.RECT monitor, bool clockArea)
+    private void Place(OverlaySettings settings, Win32.RECT monitor, bool clockArea, bool toastShown)
     {
         if (monitor.Width <= 0 || monitor.Height <= 0) return;
-        int width, height;
+        int width, clockHeight;
         if (clockArea)
         {
-            height = (int)Math.Round(Math.Clamp(settings.Size, 0.05, 1.0) * monitor.Height);
-            width = (int)Math.Round(height * (HasClock ? _aspect : 1.0));
+            clockHeight = (int)Math.Round(Math.Clamp(settings.Size, 0.05, 1.0) * monitor.Height);
+            width = (int)Math.Round(clockHeight * (HasClock ? _aspect : 1.0));
         }
         else
         {
             // Only the map-name notification is shown.
-            height = Math.Max(48, (int)(monitor.Height * 0.06));
+            clockHeight = 0;
             width = Math.Max(320, (int)(monitor.Width * 0.22));
         }
         width = Math.Min(width, monitor.Width);
-        height = Math.Min(height, monitor.Height);
+        var height = Math.Min(clockHeight + (toastShown ? ToastHeight(width) : 0), monitor.Height);
 
         var left = monitor.Left + (int)Math.Round(Math.Clamp(settings.X, 0, 1) * monitor.Width);
         var top = monitor.Top + (int)Math.Round(Math.Clamp(settings.Y, 0, 1) * monitor.Height);
@@ -181,6 +180,14 @@ public partial class OverlayWindow : Window
         }
         if (target.Equals(_placement) && Win32.GetWindowRect(_hwnd, out var actual) && actual.Equals(target)) return;
         ApplyPlacement(target);
+    }
+
+    /// <summary>Physical pixels the map-name notification needs below the clock at the given window width.</summary>
+    private int ToastHeight(int widthPixels)
+    {
+        var dpi = VisualTreeHelper.GetDpi(this);
+        Toast.Measure(new Size(widthPixels / dpi.DpiScaleX, double.PositiveInfinity));
+        return (int)Math.Ceiling(Toast.DesiredSize.Height * dpi.DpiScaleY);
     }
 
     private void ApplyPlacement(Win32.RECT target)

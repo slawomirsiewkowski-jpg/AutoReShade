@@ -1,8 +1,11 @@
 {
-  "$comment": "Dead by Daylight realms and maps. 'names' maps a game language code to the text shown on the loading screen. Localized names adapted from dbd-map-overlay by Luca Fontanot (Apache-2.0), see THIRD-PARTY-NOTICES.md. To add your own maps or languages without rebuilding, put a file with the same structure named custom-maps.json in the AutoReShade data folder. 'readyButton' is the text of the lobby's Ready button per game language; seeing it means the match is over.",
+  "$comment": "Dead by Daylight realms and maps. 'names' maps a game language code to the text shown on the loading screen. Localized names adapted from dbd-map-overlay by Luca Fontanot (Apache-2.0), see THIRD-PARTY-NOTICES.md. To add your own maps or languages without rebuilding, put a file with the same structure named custom-maps.json in the AutoReShade data folder. 'readyButton' and 'continueButton' are the texts of the lobby's Ready button and the results screen's Continue button per game language; seeing either means the match is over.",
   "version": 2,
   "readyButton": {
     "en": "Ready"
+  },
+  "continueButton": {
+    "en": "Continue"
   },
   "realms": [
     {

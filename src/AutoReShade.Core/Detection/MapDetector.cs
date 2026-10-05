@@ -15,7 +15,7 @@ public sealed record DetectionResult(
 
 /// <summary>
 /// Reads one frame (or the detection region of it) and decides whether a new map has been loaded
-/// or the player is back in the lobby. A map is confirmed after a near-perfect read, or after the
+/// or the match is over (lobby, or results screen via the Continue button area). A map is confirmed after a near-perfect read, or after the
 /// same map is read twice in a row, so a single bad OCR result never switches anything.
 /// </summary>
 public sealed class MapDetector
@@ -27,20 +27,17 @@ public sealed class MapDetector
     public const double MinBrightFraction = 0.0005;
     public const double MaxBrightFraction = 0.25;
 
-    /// <summary>The lobby counts only after this many reads in a row, so one odd frame never ends a match.</summary>
-    public const int LobbyConfirmReads = 2;
-
     private readonly MapNameMatcher _matcher;
-    private readonly LobbyScreenMatcher _lobby;
+    private readonly MatchEndMatcher _endScreens;
     private readonly TesseractOcr _ocr;
     private string? _pendingMapId;
     private int _pendingCount;
-    private int _lobbyReads;
+    private bool _lobbyReported;
 
-    public MapDetector(MapNameMatcher matcher, LobbyScreenMatcher lobby, TesseractOcr ocr)
+    public MapDetector(MapNameMatcher matcher, MatchEndMatcher endScreens, TesseractOcr ocr)
     {
         _matcher = matcher;
-        _lobby = lobby;
+        _endScreens = endScreens;
         _ocr = ocr;
     }
 
@@ -78,18 +75,43 @@ public sealed class MapDetector
         return new DetectionResult(lines, match, false, prepared.BrightFraction, confirmed, lobbyConfirmed, watch.Elapsed);
     }
 
-    /// <summary>Reports the lobby once per visit; the current map ends there.</summary>
+    /// <summary>Processes a whole game frame, cutting out the Continue button area first.</summary>
+    public bool ProcessContinueButtonFrame(Bitmap frame)
+    {
+        var rect = DetectionRegion.ContinueButton.ToPixels(frame.Width, frame.Height);
+        using var crop = frame.Clone(rect, frame.PixelFormat);
+        return ProcessContinueButtonRegion(crop, frame.Height);
+    }
+
+    /// <summary>
+    /// Reads the Continue button area (see <see cref="DetectionRegion.ContinueButton"/>). Seeing the
+    /// results screen's button ends the current map. Returns true when it did.
+    /// </summary>
+    public bool ProcessContinueButtonRegion(Bitmap regionImage, int frameHeight)
+    {
+        if (CurrentMap is null) return false;
+        using var prepared = FramePreprocessor.Prepare(regionImage, frameHeight, Threshold);
+        if (prepared.BrightFraction < MinBrightFraction || prepared.BrightFraction > MaxBrightFraction) return false;
+        if (!_endScreens.IsScoreboard(_ocr.ReadLines(prepared.Image))) return false;
+
+        SetCurrentMap(null);
+        return true;
+    }
+
+    /// <summary>
+    /// Reports the lobby once per visit; the current map ends there. One read is enough: players often
+    /// press Ready at once, and the Ready button with the [ESC] hint never appears during a match.
+    /// </summary>
     private bool ConfirmLobby(IReadOnlyList<string> lines)
     {
-        if (!_lobby.IsLobby(lines))
+        if (!_endScreens.IsLobby(lines))
         {
-            _lobbyReads = 0;
+            _lobbyReported = false;
             return false;
         }
-        if (_lobbyReads >= LobbyConfirmReads) return false;
+        if (_lobbyReported) return false;
 
-        _lobbyReads++;
-        if (_lobbyReads < LobbyConfirmReads) return false;
+        _lobbyReported = true;
         SetCurrentMap(null);
         return true;
     }

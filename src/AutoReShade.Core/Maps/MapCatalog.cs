@@ -66,11 +66,12 @@ public sealed class MapCatalog
     private readonly Dictionary<string, MapInfo> _mapsById;
     private readonly Dictionary<string, RealmInfo> _realmsById;
 
-    private MapCatalog(IReadOnlyList<RealmInfo> realms, IReadOnlyDictionary<string, string> readyButtonNames, int version)
+    private MapCatalog(MapListFile file, IReadOnlyList<RealmInfo> realms)
     {
         Realms = realms;
-        ReadyButtonNames = readyButtonNames;
-        Version = version;
+        ReadyButtonNames = Clean(file.ReadyButton!);
+        ContinueButtonNames = Clean(file.ContinueButton!);
+        Version = file.Version;
         Maps = realms.SelectMany(r => r.Maps).ToList();
         _mapsById = Maps.ToDictionary(m => m.Id, StringComparer.OrdinalIgnoreCase);
         _realmsById = realms.ToDictionary(r => r.Id, StringComparer.OrdinalIgnoreCase);
@@ -82,6 +83,9 @@ public sealed class MapCatalog
 
     /// <summary>Game language code to the text of the lobby's Ready button.</summary>
     public IReadOnlyDictionary<string, string> ReadyButtonNames { get; }
+
+    /// <summary>Game language code to the text of the results screen's Continue button.</summary>
+    public IReadOnlyDictionary<string, string> ContinueButtonNames { get; }
 
     public MapInfo? FindMap(string? id) => id is not null && _mapsById.TryGetValue(id, out var m) ? m : null;
     public RealmInfo? FindRealm(string? id) => id is not null && _realmsById.TryGetValue(id, out var r) ? r : null;
@@ -132,6 +136,7 @@ public sealed class MapCatalog
             ?? throw new InvalidDataException("Map list is empty.");
         file.Realms ??= new List<RealmDto>();
         file.ReadyButton ??= new Dictionary<string, string>();
+        file.ContinueButton ??= new Dictionary<string, string>();
         foreach (var realm in file.Realms)
         {
             if (string.IsNullOrWhiteSpace(realm.Id))
@@ -153,6 +158,8 @@ public sealed class MapCatalog
     {
         foreach (var (lang, text) in extra.ReadyButton!)
             target.ReadyButton![lang] = text;
+        foreach (var (lang, text) in extra.ContinueButton!)
+            target.ContinueButton![lang] = text;
 
         foreach (var extraRealm in extra.Realms!)
         {
@@ -199,7 +206,7 @@ public sealed class MapCatalog
             }
             realms.Add(new RealmInfo(realm.Id!, Clean(realm.Names!), maps));
         }
-        return new MapCatalog(realms, Clean(file.ReadyButton!), file.Version);
+        return new MapCatalog(file, realms);
     }
 
     private static IReadOnlyDictionary<string, string> Clean(Dictionary<string, string> names) =>
@@ -210,6 +217,7 @@ public sealed class MapCatalog
     {
         [JsonPropertyName("version")] public int Version { get; set; }
         [JsonPropertyName("readyButton")] public Dictionary<string, string>? ReadyButton { get; set; }
+        [JsonPropertyName("continueButton")] public Dictionary<string, string>? ContinueButton { get; set; }
         [JsonPropertyName("realms")] public List<RealmDto>? Realms { get; set; }
     }
 

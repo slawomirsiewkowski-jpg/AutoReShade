@@ -23,27 +23,27 @@ public class SettingsTests
     }
 
     [Fact]
-    public void LobbyUsesTheDefaultPreset()
+    public void AfterTheMatchTheDefaultPresetIsUsed()
     {
         var s = new AppSettings { DefaultPreset = @"C:\p\default.ini" };
 
-        var preset = s.ResolveLobbyPreset();
+        var preset = s.ResolveAfterMatchPreset();
 
         Assert.Equal(@"C:\p\default.ini", preset);
     }
 
     [Fact]
-    public void LobbyKeepsTheMatchPresetWhenTheOptionIsOff()
+    public void AfterTheMatchThePresetStaysWhenTheOptionIsOff()
     {
-        var s = new AppSettings { DefaultPreset = @"C:\p\default.ini", ShouldUseDefaultPresetInLobby = false };
+        var s = new AppSettings { DefaultPreset = @"C:\p\default.ini", ShouldUseDefaultPresetAfterMatch = false };
 
-        var preset = s.ResolveLobbyPreset();
+        var preset = s.ResolveAfterMatchPreset();
 
         Assert.Null(preset);
     }
 
     [Fact]
-    public void OlderSettingsFilesGetTheLobbyPresetOptionOn()
+    public void OlderSettingsFilesGetTheAfterMatchPresetOptionOn()
     {
         var file = Path.Combine(Path.GetTempPath(), $"settings-{Guid.NewGuid():N}.json");
         try
@@ -52,7 +52,7 @@ public class SettingsTests
 
             var s = new SettingsStore(file).Load();
 
-            Assert.True(s.ShouldUseDefaultPresetInLobby);
+            Assert.True(s.ShouldUseDefaultPresetAfterMatch);
         }
         finally
         {

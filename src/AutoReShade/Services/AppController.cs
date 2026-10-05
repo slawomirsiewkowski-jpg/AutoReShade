@@ -48,7 +48,7 @@ public sealed class AppController : IDisposable
         Game.Changed += OnGameChanged;
         Game.Tick += OnTick;
         Detection.MapConfirmed += map => Dispatch(() => SelectMap(map, MapSource.Detected));
-        Detection.LobbyConfirmed += () => Dispatch(EnterLobby);
+        Detection.MatchEnded += () => Dispatch(EndMatch);
         Detection.FrameProcessed += _ => Dispatch(RaiseStateChanged);
         Presets.StateChanged += RaiseStateChanged;
         Overlay.Adjusted += OnOverlayAdjusted;
@@ -75,8 +75,8 @@ public sealed class AppController : IDisposable
     public MapSource CurrentMapSource { get; private set; }
     public DateTime? CurrentMapTime { get; private set; }
 
-    /// <summary>When the player got back to the lobby; null while a map is active or before the first lobby.</summary>
-    public DateTime? LobbySince { get; private set; }
+    /// <summary>When the results screen or the lobby ended the last match; null while a map is active or before that.</summary>
+    public DateTime? MatchEndedAt { get; private set; }
 
     public bool UserWantsClock { get; private set; } = true;
     public ApplyResult? LastReShadeResult { get; private set; }
@@ -112,7 +112,7 @@ public sealed class AppController : IDisposable
         CurrentMap = map;
         CurrentMapSource = source;
         CurrentMapTime = DateTime.Now;
-        LobbySince = null;
+        MatchEndedAt = null;
         if (source == MapSource.Manual) Detection.SetCurrentMap(map);
 
         var clock = Settings.ResolveClock(map);
@@ -129,15 +129,15 @@ public sealed class AppController : IDisposable
     }
 
     /// <summary>The match is over: hide the clock until the next map loads and optionally go back to the default preset.</summary>
-    private void EnterLobby()
+    private void EndMatch()
     {
         CurrentMap = null;
         CurrentMapTime = null;
-        LobbySince = DateTime.Now;
+        MatchEndedAt = DateTime.Now;
         Overlay.SetClock(null);
         if (Settings.PresetSwitchingEnabled)
-            Presets.Request(Settings.ResolveLobbyPreset());
-        Tray.SetTooltip("AutoReShade - in the lobby");
+            Presets.Request(Settings.ResolveAfterMatchPreset());
+        Tray.SetTooltip("AutoReShade - match over");
         RaiseStateChanged();
     }
 

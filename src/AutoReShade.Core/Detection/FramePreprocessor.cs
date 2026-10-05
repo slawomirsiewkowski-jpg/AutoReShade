@@ -11,6 +11,9 @@ public sealed record DetectionRegion(double X, double Y, double Width, double He
     /// <summary>Lower-left part of the screen, where the loading screen prints the realm and map name.</summary>
     public static DetectionRegion Default { get; } = new(0.0, 0.65, 0.85, 0.30);
 
+    /// <summary>Bottom-right corner, where the results screen after a match shows its Continue button.</summary>
+    public static DetectionRegion ContinueButton { get; } = new(0.80, 0.87, 0.19, 0.11);
+
     public Rectangle ToPixels(int frameWidth, int frameHeight)
     {
         var x = Clamp01(X);

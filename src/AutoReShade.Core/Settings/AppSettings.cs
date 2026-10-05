@@ -11,8 +11,8 @@ public sealed class OverlaySettings
     /// <summary>Left edge as a fraction of the monitor width (0..1).</summary>
     public double X { get; set; } = 0.80;
 
-    /// <summary>Top edge as a fraction of the monitor height (0..1).</summary>
-    public double Y { get; set; } = 0.04;
+    /// <summary>Top edge as a fraction of the monitor height (0..1). The default stays below the game's "[TAB] Match details" hint.</summary>
+    public double Y { get; set; } = 0.10;
 
     /// <summary>Overlay height as a fraction of the monitor height.</summary>
     public double Size { get; set; } = 0.30;
@@ -55,8 +55,8 @@ public sealed class AppSettings
     /// <summary>Preset used for maps (and realms) without their own preset.</summary>
     public string? DefaultPreset { get; set; }
 
-    /// <summary>Switch back to the default preset when the player returns to the lobby.</summary>
-    public bool ShouldUseDefaultPresetInLobby { get; set; } = true;
+    /// <summary>Switch back to the default preset when the match is over (results screen or lobby).</summary>
+    public bool ShouldUseDefaultPresetAfterMatch { get; set; } = true;
 
     /// <summary>Realm id to preset file. Applies to every map of the realm without its own preset.</summary>
     public Dictionary<string, string> RealmPresets { get; set; } = new(StringComparer.OrdinalIgnoreCase);
@@ -84,9 +84,9 @@ public sealed class AppSettings
         return string.IsNullOrWhiteSpace(DefaultPreset) ? null : DefaultPreset;
     }
 
-    /// <summary>The preset for the lobby, or null to keep the one from the last match.</summary>
-    public string? ResolveLobbyPreset() =>
-        ShouldUseDefaultPresetInLobby && !string.IsNullOrWhiteSpace(DefaultPreset) ? DefaultPreset : null;
+    /// <summary>The preset for after the match, or null to keep the one from the match.</summary>
+    public string? ResolveAfterMatchPreset() =>
+        ShouldUseDefaultPresetAfterMatch && !string.IsNullOrWhiteSpace(DefaultPreset) ? DefaultPreset : null;
 
     public string? ResolveClock(MapInfo map) =>
         MapClocks.TryGetValue(map.Id, out var clock) && !string.IsNullOrWhiteSpace(clock) ? clock : null;

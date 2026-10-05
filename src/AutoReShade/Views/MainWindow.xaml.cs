@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using AutoReShade.Core;
 using AutoReShade.Core.Detection;
 using AutoReShade.Core.Game;
@@ -34,15 +35,21 @@ public partial class MainWindow : Window
         _app.StateChanged += UpdateStatus;
         IsVisibleChanged += (_, _) =>
         {
-            if (IsVisible) UpdateStatus();
+            if (!IsVisible) return;
+            UpdateStatus();
+            ScrollMapsToTopWhenReady();
         };
         Loaded += (_, _) =>
         {
             Tabs.SelectedIndex = 0;
-            MapScroller.ScrollToTop();
+            ScrollMapsToTopWhenReady();
             MapSearchBox.Focus();
         };
     }
+
+    /// <summary>The map list is still being laid out when the window appears, so scroll only after it has settled.</summary>
+    private void ScrollMapsToTopWhenReady() =>
+        Dispatcher.BeginInvoke(MapScroller.ScrollToTop, DispatcherPriority.ContextIdle);
 
     private AppSettings S => _app.Settings;
 
@@ -63,7 +70,7 @@ public partial class MainWindow : Window
         _loading = true;
         ReShadeFolderBox.Text = S.ReShadeDirectory ?? string.Empty;
         SwitchingEnabledBox.IsChecked = S.PresetSwitchingEnabled;
-        LobbyPresetBox.IsChecked = S.ShouldUseDefaultPresetInLobby;
+        AfterMatchPresetBox.IsChecked = S.ShouldUseDefaultPresetAfterMatch;
 
         OverlayEnabledBox.IsChecked = S.Overlay.Enabled;
         SizeSlider.Value = Math.Round(S.Overlay.Size * 100);
@@ -130,10 +137,10 @@ public partial class MainWindow : Window
         WindowModeText.Text = WindowModeDescription(game);
 
         var map = _app.CurrentMap;
-        MapStatusText.Text = map?.DisplayName ?? (_app.LobbySince is null ? "None yet" : "In the lobby");
+        MapStatusText.Text = map?.DisplayName ?? (_app.MatchEndedAt is null ? "None yet" : "Match over");
         MapDetailText.Text = map is not null
             ? $"{_app.Catalog.FindRealm(map.RealmId)?.DisplayName} - {(_app.CurrentMapSource == MapSource.Manual ? "chosen manually" : "detected")} at {_app.CurrentMapTime:HH:mm:ss}"
-            : _app.LobbySince is { } since
+            : _app.MatchEndedAt is { } since
                 ? $"Match over at {since:HH:mm:ss} - the clock comes back when the next map loads"
                 : "Detected on the loading screen";
         foreach (var realm in _realms)
@@ -428,10 +435,10 @@ public partial class MainWindow : Window
         _app.FlushSettings();
     }
 
-    private void OnLobbyPresetChanged(object sender, RoutedEventArgs e)
+    private void OnAfterMatchPresetChanged(object sender, RoutedEventArgs e)
     {
         if (_loading) return;
-        S.ShouldUseDefaultPresetInLobby = LobbyPresetBox.IsChecked == true;
+        S.ShouldUseDefaultPresetAfterMatch = AfterMatchPresetBox.IsChecked == true;
         _app.SettingsChanged();
     }
 

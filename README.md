@@ -23,7 +23,7 @@ You never have to alt-tab or press anything during a match.
 - **Automatic map detection.** Reads the realm and map name from the loading screen. Works at any resolution (1080p, 1440p, 4K and more) and in 15 game languages.
 - **ReShade preset per map.** Assign a preset to a whole realm, override it for single maps, and set a default preset for everything else. AutoReShade can even assign your presets for you from their file names (for example `11.MyPreset.Macmillan.ini`).
 - **Map clock overlay.** Your own clock images, shown above the game. You can change their size, opacity and position. Mouse clicks pass through the overlay, and it can stay hidden whenever the game is not the active window.
-- **Clears up after the match.** When you are back in the lobby, the clock disappears until the next map loads, and ReShade switches back to your default preset (you can turn that off).
+- **Clears up after the match.** As soon as the results screen or the lobby appears, the clock disappears until the next map loads, and ReShade switches back to your default preset (you can turn that off).
 - **Hotkeys.** Show/hide the clock, move/resize the overlay, choose a map by hand.
 - **Map variants.** Knows the newer layouts such as Coal Tower II, Shelter Woods II and Mount Ormond Resort II/III, so the right clock is shown.
 - **Manual fallback.** If a loading screen was missed, press the hotkey (or use the tray menu) and pick the map from a searchable list.
@@ -83,7 +83,7 @@ You can change them on the **Hotkeys** tab.
 
 ## How it works
 
-- **Map detection:** while Dead by Daylight is the active window, AutoReShade takes a screenshot of the lower-left part of the game window every 1.5 seconds and reads the text with the built-in [Tesseract](https://github.com/tesseract-ocr/tesseract) OCR engine. When the loading screen shows a known map name, that map becomes active. When the lobby's **Ready** button and the **[ESC]** key hint are visible (twice in a row), the match is over and the map is cleared. Each check takes about 0.2 seconds of CPU time and nothing is ever sent anywhere.
+- **Map detection:** while Dead by Daylight is the active window, AutoReShade takes a screenshot of the lower-left part of the game window every 1.5 seconds and reads the text with the built-in [Tesseract](https://github.com/tesseract-ocr/tesseract) OCR engine. When the loading screen shows a known map name, that map becomes active. While a map is active it also reads the bottom-right corner, where the results screen shows its **Continue** button. When that button, or the lobby's **Ready** button together with the **[ESC]** key hint, is visible, the match is over and the map is cleared. Each check takes about 0.2 seconds of CPU time and nothing is ever sent anywhere.
 - **Preset switching:** ReShade has a built-in feature to switch presets with a keyboard shortcut (`PresetShortcutKeys` in `ReShade.ini`). AutoReShade gives every preset you use its own shortcut, using keys that no keyboard has (F13-F24 and unassigned key codes), so they never clash with your bindings. When a map is detected, AutoReShade presses that key while the game is focused. Your original `ReShade.ini` is backed up as `ReShade.ini.autoreshade-backup`.
 - **Overlay:** the clock is a separate, transparent, always-on-top window that mouse clicks pass through. It is drawn by Windows above the game, not inside it.
 
@@ -121,10 +121,11 @@ The built-in map list ([`maps.json`](src/AutoReShade.Core/Data/maps.json)) conta
 
 Then click **Reload map list** on the **Maps** tab. Entries with an existing `id` add names to that realm or map; new ids add new realms or maps.
 
-The lobby is recognised by the text of its **Ready** button. Only the English text is built in so far. If your game is in another language, add the button's text the same way (and please share it in an issue, so it can be built in):
+The end of a match is recognised by the text of the results screen's **Continue** button and the lobby's **Ready** button. Only the English texts are built in so far. If your game is in another language, add the buttons' texts the same way (and please share them in an issue, so they can be built in):
 
 ```json
 {
+  "continueButton": { "de": "the text shown on the Continue button" },
   "readyButton": { "de": "the text shown on the Ready button" }
 }
 ```

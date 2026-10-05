@@ -12,6 +12,12 @@
         Focusable="False"
         Width="300" Height="300">
     <Grid x:Name="Root">
+        <Grid.RowDefinitions>
+            <!-- The clock, and below it the map-name notification so it never covers the clock -->
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
         <Image x:Name="ClockImage"
                Stretch="Uniform"
                RenderOptions.BitmapScalingMode="HighQuality" />
@@ -49,8 +55,8 @@
         </Border>
 
         <Border x:Name="Toast"
+                Grid.Row="1"
                 Visibility="Collapsed"
-                VerticalAlignment="Top"
                 HorizontalAlignment="Center"
                 Margin="0,6,0,0"
                 Padding="12,5"
@@ -59,6 +65,8 @@
                 BorderBrush="#FFB21C24"
                 BorderThickness="1">
             <TextBlock x:Name="ToastText"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
                        Foreground="White"
                        FontSize="15"
                        FontWeight="SemiBold" />
