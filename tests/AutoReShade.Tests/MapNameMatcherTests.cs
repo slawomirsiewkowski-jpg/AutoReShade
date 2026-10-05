@@ -18,6 +18,10 @@ public class MapNameMatcherTests
     [InlineData("The Game", "the-game")]
     [InlineData("MOUNT ORMOND RESORT", "mount-ormond-resort")]
     [InlineData("ORMOND LAKE MINE", "ormond-lake-mine")]
+    [InlineData("COAL TOWER II", "coal-tower-ii")]
+    [InlineData("SHELTER WOODS Il", "shelter-woods-ii")]
+    [InlineData("MOUNT ORMOND RESORT III", "mount-ormond-resort-iii")]
+    [InlineData("SANCTUM OF WRATH II", "sanctum-of-wrath-ii")]
     public void ReadsCleanNames(string line, string expected) => Assert.Equal(expected, Detect(line));
 
     [Theory]

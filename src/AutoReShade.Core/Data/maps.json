@@ -1,6 +1,6 @@
 {
   "$comment": "Dead by Daylight realms and maps. 'names' maps a game language code to the text shown on the loading screen. Localized names adapted from dbd-map-overlay by Luca Fontanot (Apache-2.0), see THIRD-PARTY-NOTICES.md. To add your own maps or languages without rebuilding, put a file with the same structure named custom-maps.json in the AutoReShade data folder.",
-  "version": 1,
+  "version": 2,
   "realms": [
     {
       "id": "the-macmillan-estate",
@@ -43,6 +43,26 @@
           }
         },
         {
+          "id": "coal-tower-ii",
+          "names": {
+            "en": "Coal Tower II",
+            "de": "Kohlelager II",
+            "es-MX": "Torre de carbón II",
+            "es": "Torre de carbón II",
+            "fr": "Entrepôt de charbon II",
+            "it": "Torre di carbone II",
+            "ja": "コール・タワー II",
+            "ko": "석탄 저장소 II",
+            "pl": "Wieża Węglowa II",
+            "pt-BR": "Torre de Carvão II",
+            "ru": "Угольная Башня II",
+            "th": "หอถ่านหิน II",
+            "tr": "Kömür Kulesi II",
+            "zh-Hans": "煤矿废塔 II",
+            "zh-Hant": "煤礦廢塔 II"
+          }
+        },
+        {
           "id": "groaning-storehouse",
           "names": {
             "en": "Groaning Storehouse",
@@ -60,6 +80,26 @@
             "tr": "İnleyen Depo",
             "zh-Hans": "哀嚎仓库",
             "zh-Hant": "哀嚎倉庫"
+          }
+        },
+        {
+          "id": "groaning-storehouse-ii",
+          "names": {
+            "en": "Groaning Storehouse II",
+            "de": "Seufzendes Lagerhaus II",
+            "es-MX": "Almacén quejumbroso II",
+            "es": "Almacén quejumbroso II",
+            "fr": "Entrepôt grondant II",
+            "it": "Deposito scricchiolante II",
+            "ja": "グロウニング・ストアハウス II",
+            "ko": "비명을 지르는 창고 II",
+            "pl": "Jęczący Magazyn II",
+            "pt-BR": "Armazém Rangente II",
+            "ru": "Стонущий Склад II",
+            "th": "โกดังคร่ำครวญ II",
+            "tr": "İnleyen Depo II",
+            "zh-Hans": "哀嚎仓库 II",
+            "zh-Hant": "哀嚎倉庫 II"
           }
         },
         {
@@ -83,6 +123,26 @@
           }
         },
         {
+          "id": "ironworks-of-misery-ii",
+          "names": {
+            "en": "Ironworks of Misery II",
+            "de": "Eisenwerk der Qual II",
+            "es-MX": "Fundición de la Miseria II",
+            "es": "Fundición de la Miseria II",
+            "fr": "Fonderie de souffrance II",
+            "it": "Ferriera del Tormento II",
+            "ja": "アイアンワークス・オブ・ミザリー II",
+            "ko": "고통의 제철소 II",
+            "pl": "Huta Niedoli II",
+            "pt-BR": "Fábrica da Miséria II",
+            "ru": "Завод Страданий II",
+            "th": "โรงเหล็กแห่งความทรมาน II",
+            "tr": "Istırap Fabrikası II",
+            "zh-Hans": "悲惨钢铁厂 II",
+            "zh-Hant": "悲慘鋼鐵廠 II"
+          }
+        },
+        {
           "id": "shelter-woods",
           "names": {
             "en": "Shelter Woods",
@@ -103,6 +163,26 @@
           }
         },
         {
+          "id": "shelter-woods-ii",
+          "names": {
+            "en": "Shelter Woods II",
+            "de": "Schutzwald II",
+            "es-MX": "Bosque refugio II",
+            "es": "Bosque refugio II",
+            "fr": "Forêt profonde II",
+            "it": "Rifugi boschivi II",
+            "ja": "シェルター・ウッズ II",
+            "ko": "그늘진 숲 II",
+            "pl": "Leśne Schronisko II",
+            "pt-BR": "Abrigo Florestal II",
+            "ru": "Лесная Опушка II",
+            "th": "ป่าหลบภัย II",
+            "tr": "Barakalı Orman II",
+            "zh-Hans": "掩护林 II",
+            "zh-Hant": "掩護林 II"
+          }
+        },
+        {
           "id": "suffocation-pit",
           "names": {
             "en": "Suffocation Pit",
@@ -120,6 +200,26 @@
             "tr": "Boğma Çukuru",
             "zh-Hans": "窒息矿井",
             "zh-Hant": "窒息礦井"
+          }
+        },
+        {
+          "id": "suffocation-pit-ii",
+          "names": {
+            "en": "Suffocation Pit II",
+            "de": "Grubenschacht II",
+            "es-MX": "Pozo de asfixia II",
+            "es": "Pozo de asfixia II",
+            "fr": "Puits d'asphyxie II",
+            "it": "Miniera del soffocamento II",
+            "ja": "サファケーション・ピット II",
+            "ko": "질식의 구덩이 II",
+            "pl": "Duszna Kopalnia II",
+            "pt-BR": "Fosso do Sufocamento II",
+            "ru": "Удушающая Яма II",
+            "th": "หลุมหายใจไม่ออก II",
+            "tr": "Boğma Çukuru II",
+            "zh-Hans": "窒息矿井 II",
+            "zh-Hant": "窒息礦井 II"
           }
         }
       ]
@@ -818,6 +918,26 @@
           }
         },
         {
+          "id": "family-residence-ii",
+          "names": {
+            "en": "Family Residence II",
+            "de": "Familiensitz II",
+            "es-MX": "Residencia familiar II",
+            "es": "Residencia familiar II",
+            "fr": "Résidence familiale II",
+            "it": "Residenza di famiglia II",
+            "ja": "ファミリー・レジデンス II",
+            "ko": "야마오카 가문 주택 II",
+            "pl": "Rezydencja Rodzinna II",
+            "pt-BR": "Residência da Família II",
+            "ru": "Семейная Резиденция II",
+            "th": "ที่อยู่อาศัยของครอบครัว II",
+            "tr": "Aile Konutu II",
+            "zh-Hans": "家族宅邸 II",
+            "zh-Hant": "家宅 II"
+          }
+        },
+        {
           "id": "sanctum-of-wrath",
           "names": {
             "en": "Sanctum of Wrath",
@@ -835,6 +955,26 @@
             "tr": "Hiddet Sunağı",
             "zh-Hans": "愤怒圣所",
             "zh-Hant": "怒火聖地"
+          }
+        },
+        {
+          "id": "sanctum-of-wrath-ii",
+          "names": {
+            "en": "Sanctum of Wrath II",
+            "de": "Heiligtum des Zorns II",
+            "es-MX": "Santuario de la ira II",
+            "es": "Santuario de la cólera II",
+            "fr": "Sanctuaire du courroux II",
+            "it": "Sacrario dell'Ira II",
+            "ja": "怒りの聖所 II",
+            "ko": "분노의 사원 II",
+            "pl": "Sanktuarium Gniewu II",
+            "pt-BR": "Santuário da Ira II",
+            "ru": "Прибежище гнева II",
+            "th": "สักการสถานแห่งโทสะ II",
+            "tr": "Hiddet Sunağı II",
+            "zh-Hans": "愤怒圣所 II",
+            "zh-Hant": "怒火聖地 II"
           }
         }
       ]
@@ -870,6 +1010,52 @@
             "zh-Hans": "奥蒙德山度假村",
             "zh-Hant": "奧蒙德山度假村"
           }
+        },
+        {
+          "id": "mount-ormond-resort-ii",
+          "names": {
+            "en": "Mount Ormond Resort II",
+            "de": "Skiort am Mount Ormond II",
+            "es-MX": "Complejo del monte Ormond II",
+            "es": "Complejo del monte Ormond II",
+            "fr": "Station du mont Ormond II",
+            "it": "Resort del Monte Ormond II",
+            "ja": "オーモンド山のリゾート II",
+            "ko": "오르몬드 산 리조트 II",
+            "pl": "Ośrodek Mount Ormond II",
+            "pt-BR": "Resort do Monte Ormond II",
+            "ru": "Курорт «Гора Ормонд» II",
+            "th": "ที่พักตากอากาศเขาออร์มอนด์ II",
+            "tr": "Ormond Dağı Tatil Yeri II",
+            "zh-Hans": "奥蒙德山度假村 II",
+            "zh-Hant": "奧蒙德山度假村 II"
+          },
+          "aliases": [
+            "Ormond II"
+          ]
+        },
+        {
+          "id": "mount-ormond-resort-iii",
+          "names": {
+            "en": "Mount Ormond Resort III",
+            "de": "Skiort am Mount Ormond III",
+            "es-MX": "Complejo del monte Ormond III",
+            "es": "Complejo del monte Ormond III",
+            "fr": "Station du mont Ormond III",
+            "it": "Resort del Monte Ormond III",
+            "ja": "オーモンド山のリゾート III",
+            "ko": "오르몬드 산 리조트 III",
+            "pl": "Ośrodek Mount Ormond III",
+            "pt-BR": "Resort do Monte Ormond III",
+            "ru": "Курорт «Гора Ормонд» III",
+            "th": "ที่พักตากอากาศเขาออร์มอนด์ III",
+            "tr": "Ormond Dağı Tatil Yeri III",
+            "zh-Hans": "奥蒙德山度假村 III",
+            "zh-Hant": "奧蒙德山度假村 III"
+          },
+          "aliases": [
+            "Ormond III"
+          ]
         },
         {
           "id": "ormond-lake-mine",

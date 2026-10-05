@@ -10,7 +10,7 @@ public class MapCatalogTests
         var catalog = MapCatalog.LoadBuiltIn();
 
         Assert.Equal(21, catalog.Realms.Count);
-        Assert.Equal(50, catalog.Maps.Count);
+        Assert.Equal(59, catalog.Maps.Count);
         Assert.All(catalog.Maps, m => Assert.False(string.IsNullOrWhiteSpace(m.Names["en"])));
         Assert.Equal("Coal Tower", catalog.FindMap("coal-tower")!.DisplayName);
         Assert.Equal("the-macmillan-estate", catalog.FindMap("coal-tower")!.RealmId);
@@ -34,7 +34,7 @@ public class MapCatalogTests
 
         var catalog = MapCatalog.Load(MapCatalog.ReadBuiltInJson(), custom);
 
-        Assert.Equal(52, catalog.Maps.Count);
+        Assert.Equal(61, catalog.Maps.Count);
         Assert.Equal("Kohleturm X", catalog.FindMap("coal-tower")!.Names["xx"]);
         Assert.Contains("Coal Twr", catalog.FindMap("coal-tower")!.Aliases);
         Assert.Equal("the-macmillan-estate", catalog.FindMap("new-map")!.RealmId);
@@ -50,7 +50,7 @@ public class MapCatalogTests
         {
             var catalog = MapCatalog.LoadWithCustom(file, out var error);
             Assert.NotNull(error);
-            Assert.Equal(50, catalog.Maps.Count);
+            Assert.Equal(59, catalog.Maps.Count);
         }
         finally
         {

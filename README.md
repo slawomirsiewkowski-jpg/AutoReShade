@@ -24,6 +24,7 @@ You never have to alt-tab or press anything during a match.
 - **ReShade preset per map.** Assign a preset to a whole realm, override it for single maps, and set a default preset for everything else. AutoReShade can even assign your presets for you from their file names (for example `11.MyPreset.Macmillan.ini`).
 - **Map clock overlay.** Your own clock images, shown above the game. You can change their size, opacity and position. Mouse clicks pass through the overlay, and it can stay hidden whenever the game is not the active window.
 - **Hotkeys.** Show/hide the clock, move/resize the overlay, choose a map by hand.
+- **Map variants.** Knows the newer layouts such as Coal Tower II, Shelter Woods II and Mount Ormond Resort II/III, so the right clock is shown.
 - **Manual fallback.** If a loading screen was missed, press the hotkey (or use the tray menu) and pick the map from a searchable list.
 - **Display mode check.** Warns you if the game runs in exclusive Fullscreen, where no overlay can be drawn, and tells you how to fix it.
 - **Everything is configurable.** Nothing is tied to one PC. The map list is a separate file, so new maps can be added without changing code.
@@ -58,7 +59,7 @@ Nothing else needs to be installed. AutoReShade is a single `.exe` with everythi
 
 ### 2. Map clocks
 
-AutoReShade does not include any clock images, because they belong to their creators. Use your own or ones you are allowed to use.
+AutoReShade does not include any clock images, because they belong to their creators. Use your own or ones you are allowed to use. A popular complete set is the clock callouts by **Hens333**, which you can view and save from [DBD Campfire](https://dbdcampfire.dev/clock-callouts). Please credit the creator if you share them.
 
 1. On the **Maps** tab click **Open clocks folder**.
 2. Copy your clock images (PNG or JPG) into that folder. Name each file after its map, for example `Coal Tower.png`, `Badham Preschool III.png` or `Midwich.png`.
