@@ -1,0 +1,12 @@
+# Build output
+bin/
+obj/
+artifacts/
+TestResults/
+*.user
+.vs/
+
+# Local tooling and scratch space (not part of AutoReShade)
+.claude/
+_starter-template/
+_scratch/

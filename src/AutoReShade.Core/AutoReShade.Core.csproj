@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>AutoReShade.Core</RootNamespace>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="10.0.12" />
+    <PackageReference Include="Tesseract" Version="5.2.0" GeneratePathProperty="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\maps.json" LogicalName="AutoReShade.maps.json" />
+    <EmbeddedResource Include="Data\tessdata\eng.traineddata" LogicalName="AutoReShade.tessdata.eng.traineddata" />
+    <EmbeddedResource Include="$(PkgTesseract)\x64\tesseract50.dll" LogicalName="AutoReShade.native.tesseract50.dll" Visible="false" />
+    <EmbeddedResource Include="$(PkgTesseract)\x64\leptonica-1.82.0.dll" LogicalName="AutoReShade.native.leptonica-1.82.0.dll" Visible="false" />
+  </ItemGroup>
+
+</Project>

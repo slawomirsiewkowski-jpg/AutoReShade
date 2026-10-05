@@ -1,0 +1,343 @@
+<Window x:Class="AutoReShade.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AutoReShade"
+        Icon="/Assets/AutoReShade.ico"
+        Width="1040" Height="760"
+        MinWidth="820" MinHeight="560"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="18,14,18,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <DockPanel Grid.Row="0" Margin="0,0,0,10">
+            <Image Source="/Assets/AutoReShade.ico" Width="40" Height="40" Margin="0,0,12,0" DockPanel.Dock="Left" />
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="AutoReShade" FontSize="22" FontWeight="Bold" />
+                <TextBlock Text="Automatic ReShade presets and map clocks for Dead by Daylight" Opacity="0.7" />
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Live status -->
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Style="{StaticResource Card}" Margin="0,0,8,0">
+                <StackPanel>
+                    <TextBlock Text="GAME" FontSize="11" Opacity="0.6" FontWeight="SemiBold" />
+                    <TextBlock x:Name="GameStatusText" Text="Not running" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" />
+                    <TextBlock x:Name="WindowModeText" Opacity="0.75" TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="1" Style="{StaticResource Card}" Margin="4,0,4,0">
+                <StackPanel>
+                    <TextBlock Text="CURRENT MAP" FontSize="11" Opacity="0.6" FontWeight="SemiBold" />
+                    <TextBlock x:Name="MapStatusText" Text="None yet" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" />
+                    <TextBlock x:Name="MapDetailText" Opacity="0.75" TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="2" Style="{StaticResource Card}" Margin="8,0,0,0">
+                <StackPanel>
+                    <TextBlock Text="RESHADE PRESET" FontSize="11" Opacity="0.6" FontWeight="SemiBold" />
+                    <TextBlock x:Name="PresetStatusText" Text="-" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" />
+                    <TextBlock x:Name="PresetDetailText" Opacity="0.75" TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <TabControl Grid.Row="2" x:Name="Tabs">
+            <!-- ============================== MAPS -->
+            <TabItem Header="Maps">
+                <DockPanel Margin="4,10,4,4">
+                    <Border x:Name="ProblemsPanel" DockPanel.Dock="Top" Style="{StaticResource Card}" BorderBrush="{StaticResource AccentRed}" Visibility="Collapsed">
+                        <TextBlock x:Name="ProblemsText" TextWrapping="Wrap" />
+                    </Border>
+                    <DockPanel DockPanel.Dock="Top" Margin="0,0,0,6" LastChildFill="False">
+                        <TextBlock Text="Search:" VerticalAlignment="Center" Margin="0,0,8,0" DockPanel.Dock="Left" />
+                        <TextBox x:Name="MapSearchBox" Width="220" DockPanel.Dock="Left" TextChanged="OnMapSearchChanged" />
+                        <Button Content="Reload map list" Click="OnReloadMaps" DockPanel.Dock="Right" Margin="8,0,0,0" />
+                        <Button Content="Open clocks folder" Click="OnOpenClocksFolder" DockPanel.Dock="Right" Margin="8,0,0,0" />
+                        <Button Content="Assign clocks from folder" Click="OnAutoAssignClocks" DockPanel.Dock="Right" Margin="8,0,0,0" />
+                        <Button Content="Assign presets from file names" Click="OnAutoAssignPresets" DockPanel.Dock="Right" />
+                    </DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Style="{StaticResource Hint}"
+                               Text="Choose a ReShade preset for a whole realm (or for a single map) and a clock image for each map. Maps without a preset use the realm preset, then the default preset. Changes are saved automatically." />
+                    <ScrollViewer x:Name="MapScroller" VerticalScrollBarVisibility="Auto" Padding="0,0,8,0">
+                        <ItemsControl x:Name="RealmList">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource Card}" Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}">
+                                        <StackPanel>
+                                            <DockPanel Margin="0,0,0,6">
+                                                <ComboBox DockPanel.Dock="Right" Width="250"
+                                                          ItemsSource="{Binding PresetOptions}"
+                                                          SelectedItem="{Binding SelectedPreset, Mode=OneWay}"
+                                                          SelectionChanged="OnRealmPresetPicked" />
+                                                <TextBlock DockPanel.Dock="Right" Text="Realm preset:" VerticalAlignment="Center" Margin="0,0,8,0" Opacity="0.8" />
+                                                <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" />
+                                            </DockPanel>
+                                            <ItemsControl ItemsSource="{Binding Maps}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid Margin="0,3" Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*" MinWidth="170" />
+                                                                <ColumnDefinition Width="230" />
+                                                                <ColumnDefinition Width="52" />
+                                                                <ColumnDefinition Width="170" />
+                                                                <ColumnDefinition Width="Auto" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                                                <TextBlock Text="&#x25CF; " Foreground="{StaticResource AccentRed}"
+                                                                           Visibility="{Binding IsCurrent, Converter={StaticResource BoolToVisibility}}" />
+                                                                <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
+                                                            </StackPanel>
+                                                            <ComboBox Grid.Column="1" Margin="0,0,8,0"
+                                                                      ItemsSource="{Binding PresetOptions}"
+                                                                      SelectedItem="{Binding SelectedPreset, Mode=OneWay}"
+                                                                      SelectionChanged="OnMapPresetPicked" />
+                                                            <Border Grid.Column="2" Width="44" Height="44" CornerRadius="4" Background="#22808080">
+                                                                <Image Source="{Binding Thumbnail}" Stretch="Uniform" />
+                                                            </Border>
+                                                            <TextBlock Grid.Column="3" Text="{Binding ClockLabel}" VerticalAlignment="Center"
+                                                                       Margin="8,0" TextTrimming="CharacterEllipsis" Opacity="0.85" />
+                                                            <StackPanel Grid.Column="4" Orientation="Horizontal">
+                                                                <Button Content="Clock..." Click="OnChooseClock" Tag="{Binding}" Margin="0,0,4,0" ToolTip="Choose a clock image for this map" />
+                                                                <Button Content="&#x2715;" Click="OnClearClock" Tag="{Binding}" Margin="0,0,4,0" ToolTip="Remove the clock image"
+                                                                        IsEnabled="{Binding HasClock}" />
+                                                                <Button Content="Show now" Click="OnShowMap" Tag="{Binding}" ToolTip="Use this map now (manual choice)" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </DockPanel>
+            </TabItem>
+
+            <!-- ============================== RESHADE -->
+            <TabItem Header="ReShade">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="8,4,16,8" MaxWidth="820" HorizontalAlignment="Left">
+                        <TextBlock Style="{StaticResource SectionTitle}" Text="ReShade folder" />
+                        <TextBlock Style="{StaticResource Hint}" Text="The folder with ReShade.ini, next to the game's DeadByDaylight-Win64-Shipping.exe (usually ...\Dead by Daylight\DeadByDaylight\Binaries\Win64)." />
+                        <DockPanel>
+                            <Button DockPanel.Dock="Right" Content="Find automatically" Click="OnFindReShade" Margin="8,0,0,0" />
+                            <Button DockPanel.Dock="Right" Content="Browse..." Click="OnBrowseReShade" Margin="8,0,0,0" />
+                            <TextBox x:Name="ReShadeFolderBox" IsReadOnly="True" />
+                        </DockPanel>
+                        <TextBlock x:Name="ReShadeFolderStatus" Style="{StaticResource Hint}" />
+
+                        <CheckBox x:Name="SwitchingEnabledBox" Content="Switch ReShade presets automatically" Margin="0,10,0,0"
+                                  Checked="OnSwitchingChanged" Unchecked="OnSwitchingChanged" />
+
+                        <TextBlock Style="{StaticResource SectionTitle}" Text="Default preset" />
+                        <TextBlock Style="{StaticResource Hint}" Text="Used for every map that has no preset of its own and whose realm has none." />
+                        <DockPanel>
+                            <Button DockPanel.Dock="Right" Content="Refresh preset list" Click="OnRefreshPresets" Margin="8,0,0,0" />
+                            <ComboBox x:Name="DefaultPresetBox" SelectionChanged="OnDefaultPresetChanged" />
+                        </DockPanel>
+
+                        <TextBlock Style="{StaticResource SectionTitle}" Text="Preset shortcuts in ReShade.ini" />
+                        <TextBlock x:Name="ReShadeSyncStatus" TextWrapping="Wrap" Margin="0,0,0,6" />
+                        <Button Content="Save to ReShade.ini now" Click="OnSaveReShadeNow" HorizontalAlignment="Left" />
+                        <TextBlock Style="{StaticResource Hint}" Margin="0,10,0,0"
+                                   Text="How it works: AutoReShade gives each preset you use its own hidden shortcut key (F13-F24 and similar keys that no keyboard has) and saves them in ReShade.ini using ReShade's built-in preset shortcut feature. When a map is detected, AutoReShade presses that key while the game is focused and ReShade switches the preset. ReShade reads ReShade.ini when the game starts, so restart the game after changing presets. Your original ReShade.ini is kept as ReShade.ini.autoreshade-backup." />
+                        <Expander Header="Assigned keys" Margin="0,6,0,0">
+                            <TextBlock x:Name="ShortcutListText" FontFamily="Consolas" Margin="8" TextWrapping="Wrap" />
+                        </Expander>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ============================== OVERLAY -->
+            <TabItem Header="Clock overlay">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="8,4,16,8" MaxWidth="820" HorizontalAlignment="Left">
+                        <CheckBox x:Name="OverlayEnabledBox" Content="Show the map clock above the game" Margin="0,12,0,0"
+                                  Checked="OnOverlaySettingChanged" Unchecked="OnOverlaySettingChanged" />
+
+                        <TextBlock Style="{StaticResource SectionTitle}" Text="Size" />
+                        <DockPanel>
+                            <TextBlock x:Name="SizeValueText" DockPanel.Dock="Right" Width="60" TextAlignment="Right" VerticalAlignment="Center" />
+                            <Slider x:Name="SizeSlider" Minimum="5" Maximum="80" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="OnOverlaySliderChanged" />
+                        </DockPanel>
+                        <TextBlock Style="{StaticResource Hint}" Text="Height of the clock as a share of the screen height, so it looks the same at any resolution." />
+
+                        <TextBlock Style="{StaticResource SectionTitle}" Text="Opacity" />
+                        <DockPanel>
+                            <TextBlock x:Name="OpacityValueText" DockPanel.Dock="Right" Width="60" TextAlignment="Right" VerticalAlignment="Center" />
+                            <Slider x:Name="OpacitySlider" Minimum="10" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="OnOverlaySliderChanged" />
+                        </DockPanel>
+
+                        <TextBlock Style="{StaticResource SectionTitle}" Text="Position" />
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Move / resize overlay..." Click="OnAdjustOverlay" Margin="0,0,8,0" />
+                            <Button Content="Reset position" Click="OnResetOverlay" />
+                        </StackPanel>
+                        <TextBlock Style="{StaticResource Hint}" Text="Shows the overlay so you can drag it with the mouse and resize it with the mouse wheel. Press Enter when you are done. This also works in game with the hotkey." />
+
+                        <CheckBox x:Name="OnlyFocusedBox" Content="Show only while Dead by Daylight is the active window" Margin="0,14,0,0"
+                                  Checked="OnOverlaySettingChanged" Unchecked="OnOverlaySettingChanged" />
+                        <CheckBox x:Name="ToastBox" Content="Show the map name for a few seconds when a map is detected" Margin="0,8,0,0"
+                                  Checked="OnOverlaySettingChanged" Unchecked="OnOverlaySettingChanged" />
+
+                        <TextBlock Style="{StaticResource Hint}" Margin="0,16,0,0"
+                                   Text="The overlay is a separate window drawn by Windows above the game. Mouse clicks pass through it. It is only visible when the game runs in Windowed Fullscreen (borderless) mode." />
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ============================== HOTKEYS -->
+            <TabItem Header="Hotkeys">
+                <StackPanel Margin="8,4,16,8" MaxWidth="820" HorizontalAlignment="Left">
+                    <TextBlock Style="{StaticResource Hint}" Margin="0,12,0,8"
+                               Text="Click a box and press the key combination you want. Backspace removes a hotkey. Hotkeys also work while you are in the game." />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="240" />
+                            <ColumnDefinition Width="220" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Show / hide clock overlay" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="HotkeyToggleBox" Tag="ToggleOverlay" Margin="0,4" IsReadOnly="True" IsReadOnlyCaretVisible="False"
+                                 PreviewKeyDown="OnHotkeyKeyDown" GotKeyboardFocus="OnHotkeyFocus" LostKeyboardFocus="OnHotkeyBlur" />
+                        <TextBlock Grid.Row="1" Text="Move / resize overlay" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="HotkeyMoveBox" Tag="MoveOverlay" Margin="0,4" IsReadOnly="True" IsReadOnlyCaretVisible="False"
+                                 PreviewKeyDown="OnHotkeyKeyDown" GotKeyboardFocus="OnHotkeyFocus" LostKeyboardFocus="OnHotkeyBlur" />
+                        <TextBlock Grid.Row="2" Text="Choose map manually" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="HotkeyPickBox" Tag="PickMap" Margin="0,4" IsReadOnly="True" IsReadOnlyCaretVisible="False"
+                                 PreviewKeyDown="OnHotkeyKeyDown" GotKeyboardFocus="OnHotkeyFocus" LostKeyboardFocus="OnHotkeyBlur" />
+                    </Grid>
+                    <TextBlock x:Name="HotkeyErrorsText" Foreground="{StaticResource AccentRed}" TextWrapping="Wrap" Margin="0,10,0,0" />
+                </StackPanel>
+            </TabItem>
+
+            <!-- ============================== DETECTION -->
+            <TabItem Header="Map detection">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="8,4,16,8" MaxWidth="900" HorizontalAlignment="Left">
+                        <CheckBox x:Name="DetectionEnabledBox" Content="Detect the map automatically" Margin="0,12,0,0"
+                                  Checked="OnDetectionSettingChanged" Unchecked="OnDetectionSettingChanged" />
+                        <TextBlock Style="{StaticResource Hint}"
+                                   Text="While the game is the active window, AutoReShade takes a screenshot of the lower-left part of the game every second or two and reads the realm and map name that the loading screen shows. It never reads or changes the game's memory or files." />
+
+                        <TextBlock Style="{StaticResource SectionTitle}" Text="Status" />
+                        <TextBlock x:Name="EngineStatusText" TextWrapping="Wrap" />
+                        <TextBlock x:Name="LastReadText" TextWrapping="Wrap" Margin="0,4,0,0" Opacity="0.85" />
+
+                        <TextBlock Style="{StaticResource SectionTitle}" Text="Test" />
+                        <TextBlock Style="{StaticResource Hint}" Text="Check detection on a screenshot of a loading screen (for example one taken with F12 in Steam)." />
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Test with a screenshot file..." Click="OnTestFile" Margin="0,0,8,0" />
+                            <Button Content="Test on the screen now" Click="OnTestScreen" />
+                        </StackPanel>
+                        <Border x:Name="TestResultPanel" Style="{StaticResource Card}" Margin="0,10,0,0" Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock x:Name="TestResultText" TextWrapping="Wrap" FontWeight="SemiBold" />
+                                <TextBlock x:Name="TestLinesText" TextWrapping="Wrap" Opacity="0.8" Margin="0,4,0,8" />
+                                <TextBlock Text="What the text reader sees:" Opacity="0.7" FontSize="12" />
+                                <Image x:Name="TestPreviewImage" MaxHeight="220" Stretch="Uniform" HorizontalAlignment="Left" Margin="0,4,0,0" />
+                            </StackPanel>
+                        </Border>
+
+                        <Expander Header="Advanced" Margin="0,14,0,0">
+                            <StackPanel Margin="8">
+                                <TextBlock Style="{StaticResource Hint}" Text="Area that is read, in percent of the game window. Only change this if detection does not work for you." />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="160" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="60" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="Left edge" VerticalAlignment="Center" />
+                                    <Slider Grid.Row="0" Grid.Column="1" x:Name="RegionXSlider" Minimum="0" Maximum="90" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="OnDetectionSliderChanged" />
+                                    <TextBlock Grid.Row="0" Grid.Column="2" x:Name="RegionXText" TextAlignment="Right" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Row="1" Text="Top edge" VerticalAlignment="Center" />
+                                    <Slider Grid.Row="1" Grid.Column="1" x:Name="RegionYSlider" Minimum="0" Maximum="90" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="OnDetectionSliderChanged" />
+                                    <TextBlock Grid.Row="1" Grid.Column="2" x:Name="RegionYText" TextAlignment="Right" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Row="2" Text="Width" VerticalAlignment="Center" />
+                                    <Slider Grid.Row="2" Grid.Column="1" x:Name="RegionWSlider" Minimum="10" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="OnDetectionSliderChanged" />
+                                    <TextBlock Grid.Row="2" Grid.Column="2" x:Name="RegionWText" TextAlignment="Right" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Row="3" Text="Height" VerticalAlignment="Center" />
+                                    <Slider Grid.Row="3" Grid.Column="1" x:Name="RegionHSlider" Minimum="5" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="OnDetectionSliderChanged" />
+                                    <TextBlock Grid.Row="3" Grid.Column="2" x:Name="RegionHText" TextAlignment="Right" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Row="4" Text="Text brightness" VerticalAlignment="Center" />
+                                    <Slider Grid.Row="4" Grid.Column="1" x:Name="ThresholdSlider" Minimum="100" Maximum="250" IsSnapToTickEnabled="True" TickFrequency="5" ValueChanged="OnDetectionSliderChanged" />
+                                    <TextBlock Grid.Row="4" Grid.Column="2" x:Name="ThresholdText" TextAlignment="Right" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Row="5" Text="Check every" VerticalAlignment="Center" />
+                                    <Slider Grid.Row="5" Grid.Column="1" x:Name="IntervalSlider" Minimum="500" Maximum="5000" IsSnapToTickEnabled="True" TickFrequency="250" ValueChanged="OnDetectionSliderChanged" />
+                                    <TextBlock Grid.Row="5" Grid.Column="2" x:Name="IntervalText" TextAlignment="Right" VerticalAlignment="Center" />
+                                </Grid>
+                                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                    <Button Content="Restore defaults" Click="OnResetDetection" Margin="0,0,8,0" />
+                                    <CheckBox x:Name="DebugCapturesBox" Content="Save what is read (for troubleshooting)" VerticalAlignment="Center" Margin="8,0"
+                                              Checked="OnDetectionSettingChanged" Unchecked="OnDetectionSettingChanged" />
+                                    <Button Content="Open folder" Click="OnOpenCaptures" />
+                                </StackPanel>
+                                <TextBlock Style="{StaticResource Hint}" Margin="0,10,0,0"
+                                           Text="Other game languages: the map list already contains the names in 15 languages. Latin-script languages work out of the box. For Russian, Japanese, Korean, Chinese or Thai, put the matching Tesseract language file (for example rus.traineddata from github.com/tesseract-ocr/tessdata_fast) into the tessdata folder and restart AutoReShade." />
+                                <Button Content="Open tessdata folder" Click="OnOpenTessdata" HorizontalAlignment="Left" />
+                            </StackPanel>
+                        </Expander>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ============================== GENERAL -->
+            <TabItem Header="General">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="8,4,16,8" MaxWidth="820" HorizontalAlignment="Left">
+                        <CheckBox x:Name="StartWithWindowsBox" Content="Start AutoReShade with Windows" Margin="0,12,0,0"
+                                  Checked="OnGeneralChanged" Unchecked="OnGeneralChanged" />
+                        <CheckBox x:Name="StartMinimizedBox" Content="Start hidden in the tray (next to the clock)" Margin="0,8,0,0"
+                                  Checked="OnGeneralChanged" Unchecked="OnGeneralChanged" />
+                        <CheckBox x:Name="CheckWindowModeBox" Content="Warn me when the game is not in Windowed Fullscreen mode" Margin="0,8,0,0"
+                                  Checked="OnGeneralChanged" Unchecked="OnGeneralChanged" />
+                        <Button Content="How to switch the game to Windowed Fullscreen" Click="OnShowWindowModeHelp" HorizontalAlignment="Left" Margin="0,10,0,0" />
+
+                        <TextBlock Style="{StaticResource SectionTitle}" Text="Files" />
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Open data folder" Click="OnOpenDataFolder" Margin="0,0,8,0" />
+                            <Button Content="Open log file" Click="OnOpenLog" Margin="0,0,8,0" />
+                            <Button Content="Project page" Click="OnOpenProjectPage" />
+                        </StackPanel>
+                        <TextBlock x:Name="DataFolderText" Style="{StaticResource Hint}" />
+
+                        <TextBlock Style="{StaticResource SectionTitle}" Text="About" />
+                        <TextBlock x:Name="VersionText" />
+                        <TextBlock Style="{StaticResource Hint}" Margin="0,8,0,0"
+                                   Text="AutoReShade is a free, open-source fan project. It is not affiliated with, endorsed by or supported by Behaviour Interactive (Dead by Daylight) or the ReShade project. Dead by Daylight is a trademark of Behaviour Interactive Inc." />
+                        <TextBlock Style="{StaticResource Hint}"
+                                   Text="Anti-cheat: AutoReShade never reads or changes the game's memory, never injects anything into the game and never changes game files. It only takes screenshots, reads text from them, presses ReShade's preset shortcut keys and shows its own window above the game. You use it at your own risk; the game's rules can change at any time." />
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <DockPanel Grid.Row="3" Margin="0,8,0,0">
+            <TextBlock DockPanel.Dock="Right" Opacity="0.6" Text="Closing this window keeps AutoReShade running in the tray." />
+            <TextBlock Opacity="0.6" Text="Settings are saved automatically." />
+        </DockPanel>
+    </Grid>
+</Window>

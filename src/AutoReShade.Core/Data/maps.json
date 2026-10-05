@@ -1,0 +1,1396 @@
+{
+  "$comment": "Dead by Daylight realms and maps. 'names' maps a game language code to the text shown on the loading screen. Localized names adapted from dbd-map-overlay by Luca Fontanot (Apache-2.0), see THIRD-PARTY-NOTICES.md. To add your own maps or languages without rebuilding, put a file with the same structure named custom-maps.json in the AutoReShade data folder.",
+  "version": 1,
+  "realms": [
+    {
+      "id": "the-macmillan-estate",
+      "names": {
+        "en": "The MacMillan Estate",
+        "de": "Das MacMillan-Anwesen",
+        "es-MX": "La finca Macmillan",
+        "es": "La finca Macmillan",
+        "fr": "La propriété MacMillan",
+        "it": "La Tenuta MacMillan",
+        "ja": "マクミラン・エステート",
+        "ko": "맥밀란 사유지",
+        "pl": "Posiadłość Macmillanów",
+        "pt-BR": "A Propriedade MacMillan",
+        "ru": "Поместье МакМиллан",
+        "th": "ที่ดินของตระกูลมัคมิลลัน",
+        "tr": "MacMillan Mülkü",
+        "zh-Hans": "迈克米伦庄园",
+        "zh-Hant": "邁克米倫莊園"
+      },
+      "maps": [
+        {
+          "id": "coal-tower",
+          "names": {
+            "en": "Coal Tower",
+            "de": "Kohlelager",
+            "es-MX": "Torre de carbón",
+            "es": "Torre de carbón",
+            "fr": "Entrepôt de charbon",
+            "it": "Torre di carbone",
+            "ja": "コール・タワー",
+            "ko": "석탄 저장소",
+            "pl": "Wieża Węglowa",
+            "pt-BR": "Torre de Carvão",
+            "ru": "Угольная Башня",
+            "th": "หอถ่านหิน",
+            "tr": "Kömür Kulesi",
+            "zh-Hans": "煤矿废塔",
+            "zh-Hant": "煤礦廢塔"
+          }
+        },
+        {
+          "id": "groaning-storehouse",
+          "names": {
+            "en": "Groaning Storehouse",
+            "de": "Seufzendes Lagerhaus",
+            "es-MX": "Almacén quejumbroso",
+            "es": "Almacén quejumbroso",
+            "fr": "Entrepôt grondant",
+            "it": "Deposito scricchiolante",
+            "ja": "グロウニング・ストアハウス",
+            "ko": "비명을 지르는 창고",
+            "pl": "Jęczący Magazyn",
+            "pt-BR": "Armazém Rangente",
+            "ru": "Стонущий Склад",
+            "th": "โกดังคร่ำครวญ",
+            "tr": "İnleyen Depo",
+            "zh-Hans": "哀嚎仓库",
+            "zh-Hant": "哀嚎倉庫"
+          }
+        },
+        {
+          "id": "ironworks-of-misery",
+          "names": {
+            "en": "Ironworks of Misery",
+            "de": "Eisenwerk der Qual",
+            "es-MX": "Fundición de la Miseria",
+            "es": "Fundición de la Miseria",
+            "fr": "Fonderie de souffrance",
+            "it": "Ferriera del Tormento",
+            "ja": "アイアンワークス・オブ・ミザリー",
+            "ko": "고통의 제철소",
+            "pl": "Huta Niedoli",
+            "pt-BR": "Fábrica da Miséria",
+            "ru": "Завод Страданий",
+            "th": "โรงเหล็กแห่งความทรมาน",
+            "tr": "Istırap Fabrikası",
+            "zh-Hans": "悲惨钢铁厂",
+            "zh-Hant": "悲慘鋼鐵廠"
+          }
+        },
+        {
+          "id": "shelter-woods",
+          "names": {
+            "en": "Shelter Woods",
+            "de": "Schutzwald",
+            "es-MX": "Bosque refugio",
+            "es": "Bosque refugio",
+            "fr": "Forêt profonde",
+            "it": "Rifugi boschivi",
+            "ja": "シェルター・ウッズ",
+            "ko": "그늘진 숲",
+            "pl": "Leśne Schronisko",
+            "pt-BR": "Abrigo Florestal",
+            "ru": "Лесная Опушка",
+            "th": "ป่าหลบภัย",
+            "tr": "Barakalı Orman",
+            "zh-Hans": "掩护林",
+            "zh-Hant": "掩護林"
+          }
+        },
+        {
+          "id": "suffocation-pit",
+          "names": {
+            "en": "Suffocation Pit",
+            "de": "Grubenschacht",
+            "es-MX": "Pozo de asfixia",
+            "es": "Pozo de asfixia",
+            "fr": "Puits d'asphyxie",
+            "it": "Miniera del soffocamento",
+            "ja": "サファケーション・ピット",
+            "ko": "질식의 구덩이",
+            "pl": "Duszna Kopalnia",
+            "pt-BR": "Fosso do Sufocamento",
+            "ru": "Удушающая Яма",
+            "th": "หลุมหายใจไม่ออก",
+            "tr": "Boğma Çukuru",
+            "zh-Hans": "窒息矿井",
+            "zh-Hant": "窒息礦井"
+          }
+        }
+      ]
+    },
+    {
+      "id": "autohaven-wreckers",
+      "names": {
+        "en": "Autohaven Wreckers",
+        "de": "Autohaven-Schrottplatz",
+        "es-MX": "Desguace Autohaven",
+        "es": "Desguace Autohaven",
+        "fr": "Casse Autohaven",
+        "it": "Demolizioni Autohaven",
+        "ja": "オートヘイヴン・レッカーズ",
+        "ko": "오토헤이븐 차량보관소",
+        "pl": "Złomowisko Autohaven",
+        "pt-BR": "Ferro-Velho Autohaven",
+        "ru": "Свалка Автохевен",
+        "th": "ลานเก็บของเก่าออโต้ฮาเว่น",
+        "tr": "Otomobil Mezarlığı",
+        "zh-Hans": "奥托海文废车场",
+        "zh-Hant": "廢舊車庫"
+      },
+      "maps": [
+        {
+          "id": "azarovs-resting-place",
+          "names": {
+            "en": "Azarov's Resting Place",
+            "de": "Azarovs Ruhestätte",
+            "es-MX": "Lugar de descanso de Azarov",
+            "es": "Lugar de descanso de Azarov",
+            "fr": "Dernière demeure d'Azarov",
+            "it": "Sepolcro di Azarov",
+            "ja": "アザロフの休憩所",
+            "ko": "아자로프의 휴게실",
+            "pl": "Miejsce Spoczynku Azarowa",
+            "pt-BR": "Sepultura de Azarov",
+            "ru": "Место Упокоения Азарова",
+            "th": "ที่พำนักของอาซารอฟ",
+            "tr": "Azarov'un Yazıhanesi",
+            "zh-Hans": "阿扎罗夫长眠处",
+            "zh-Hant": "阿扎羅夫長眠處"
+          }
+        },
+        {
+          "id": "blood-lodge",
+          "names": {
+            "en": "Blood Lodge",
+            "de": "Bluthütte",
+            "es-MX": "Cabaña de sangre",
+            "es": "Cabaña de sangre",
+            "fr": "Cabane du sang",
+            "it": "Rifugio insanguinato",
+            "ja": "ブラッド・ロッジ",
+            "ko": "피의 오두막",
+            "pl": "Krwawa Stróżówka",
+            "pt-BR": "Abrigo Sangrento",
+            "ru": "Кровавая Лачуга",
+            "th": "กระท่อมโลหิต",
+            "tr": "Kan Kulübesi",
+            "zh-Hans": "鲜血之屋",
+            "zh-Hant": "血屋"
+          }
+        },
+        {
+          "id": "gas-heaven",
+          "names": {
+            "en": "Gas Heaven",
+            "de": "Sprithimmel",
+            "es-MX": "Gasolinera",
+            "es": "Gasolinera",
+            "ja": "ガス・ヘヴン",
+            "ko": "가스 헤븐",
+            "pl": "Stacja Paliw",
+            "pt-BR": "Paraíso do Combustível",
+            "th": "ร้านแก๊สเฮเว่น",
+            "tr": "Benzin İstasyonu",
+            "zh-Hans": "汽油天堂",
+            "zh-Hant": "廢棄加油站"
+          }
+        },
+        {
+          "id": "wreckers-yard",
+          "names": {
+            "en": "Wreckers' Yard",
+            "de": "Schrottplatz",
+            "es-MX": "Desguace",
+            "es": "Desguace",
+            "fr": "Terrain de la casse",
+            "it": "Deposito Demolizioni",
+            "ja": "レッカーズ・ヤード",
+            "ko": "폐차장",
+            "pl": "Podwórze Złomowiska",
+            "pt-BR": "Quintal do Ferro-Velho",
+            "ru": "Зона Свалки",
+            "th": "ลานเก็บของเก่า",
+            "tr": "Hurdacı Bahçesi",
+            "zh-Hans": "废车回收场",
+            "zh-Hant": "廢舊車庫后院"
+          }
+        },
+        {
+          "id": "wretched-shop",
+          "names": {
+            "en": "Wretched Shop",
+            "de": "Werkstatt",
+            "es-MX": "Taller ruinoso",
+            "es": "Taller ruinoso",
+            "fr": "Atelier misérable",
+            "it": "Negozio squallido",
+            "ja": "レッチド・ショップ",
+            "ko": "정비소",
+            "pl": "Sklep Nędzy",
+            "pt-BR": "Loja Desgraçada",
+            "ru": "Магазин Барахольщика",
+            "th": "ร้านค้าชั้นต่ำ",
+            "tr": "Sefil Atölye",
+            "zh-Hans": "悲惨商店",
+            "zh-Hant": "悲慘商店"
+          }
+        }
+      ]
+    },
+    {
+      "id": "coldwind-farm",
+      "names": {
+        "en": "Coldwind Farm",
+        "es-MX": "Granja Coldwind",
+        "es": "Granja Coldwind",
+        "it": "Fattoria Coldwind",
+        "ja": "コールドウィンド・ファーム",
+        "ko": "콜드윈드 농장",
+        "pl": "Farma Coldwind",
+        "pt-BR": "Fazenda Coldwind",
+        "ru": "Ферма Колдвинд",
+        "th": "ฟาร์มโคลด์วินด์",
+        "tr": "Ayaz Yel Çiftliği",
+        "zh-Hans": "寒风农场",
+        "zh-Hant": "寒風農場"
+      },
+      "maps": [
+        {
+          "id": "fractured-cowshed",
+          "names": {
+            "en": "Fractured Cowshed",
+            "de": "Verfallener Kuhstall",
+            "es-MX": "Establo en ruinas",
+            "es": "Establo en ruinas",
+            "fr": "Étable en ruine",
+            "it": "Stalla danneggiata",
+            "ja": "フラクチャード・カウシェッド",
+            "ko": "갈라진 축사",
+            "pl": "Spękana Obora",
+            "pt-BR": "Estábulo Arruinado",
+            "ru": "Разрушенный Хлев",
+            "th": "คอกวัวแตกหัก",
+            "tr": "Zedelenmiş Sığır Ahırı",
+            "zh-Hans": "断骨牛舍",
+            "zh-Hant": "斷骨牛舍"
+          }
+        },
+        {
+          "id": "rancid-abattoir",
+          "names": {
+            "en": "Rancid Abattoir",
+            "de": "Widerliches Schlachthaus",
+            "es-MX": "Matadero pestilente",
+            "es": "Matadero pestilente",
+            "fr": "Abattoir putride",
+            "it": "Mattatoio irrancidito",
+            "ja": "ランシッド・アバトワー",
+            "ko": "부패한 도축장",
+            "pl": "Zjełczała Rzeźnia",
+            "pt-BR": "Abatedouro Asqueroso",
+            "ru": "Заброшенная скотобойня",
+            "th": "โรงฆ่าสัตว์เน่าเหม็น",
+            "tr": "Kokuşmuş Mezbaha",
+            "zh-Hans": "腐败屠宰场",
+            "zh-Hant": "腐敗屠宰場"
+          }
+        },
+        {
+          "id": "rotten-fields",
+          "names": {
+            "en": "Rotten Fields",
+            "de": "Faulige Felder",
+            "es-MX": "Campos podridos",
+            "es": "Campos podridos",
+            "fr": "Champs pourris",
+            "it": "Campi putrefatti",
+            "ja": "ロトン・フィールズ",
+            "ko": "썩은 들판",
+            "pl": "Zbutwiałe Pola",
+            "pt-BR": "Campos Pútridos",
+            "ru": "Сгнившие Поля",
+            "th": "ทุ่งเหม็นเน่า",
+            "tr": "Başıboş Tarla",
+            "zh-Hans": "腐臭田野",
+            "zh-Hant": "腐臭之地"
+          }
+        },
+        {
+          "id": "the-thompson-house",
+          "names": {
+            "en": "The Thompson House",
+            "de": "Das Thompson-Haus",
+            "es-MX": "La casa de los Thompson",
+            "es": "La casa de los Thompson",
+            "fr": "La ferme Thompson",
+            "it": "La Casa di Thompson",
+            "ja": "トンプソン・ハウス",
+            "ko": "톰슨가의 저택",
+            "pl": "Dom Thompsona",
+            "pt-BR": "Casa dos Thompson",
+            "ru": "Дом Томпсонов",
+            "th": "บ้านธอมป์สัน",
+            "tr": "Thompson'ların Evi",
+            "zh-Hans": "汤普森之家",
+            "zh-Hant": "湯姆森宅邸"
+          }
+        },
+        {
+          "id": "torment-creek",
+          "names": {
+            "en": "Torment Creek",
+            "de": "Tal der Qual",
+            "es-MX": "Arroyo del tormento",
+            "es": "Arroyo del tormento",
+            "fr": "Vallon des Tourments",
+            "it": "Torrente del Tormento",
+            "ja": "トーメント・クリーク",
+            "ko": "고통의 계곡",
+            "pl": "Przełęcz Udręki",
+            "pt-BR": "Córrego Atormentador",
+            "ru": "Ручей Страданий",
+            "th": "ธารทรมาน",
+            "tr": "Eziyet Deresi",
+            "zh-Hans": "痛苦溪流",
+            "zh-Hant": "痛苦溪流"
+          }
+        }
+      ]
+    },
+    {
+      "id": "crotus-prenn-asylum",
+      "names": {
+        "en": "Crotus Prenn Asylum",
+        "de": "Crotus-Prenn-Anstalt",
+        "es-MX": "Psiquiátrico Crotus Prenn",
+        "es": "Psiquiátrico Crotus Prenn",
+        "fr": "Asile de Crotus Prenn",
+        "it": "Ospedale psichiatrico Crotus Prenn",
+        "ja": "クロータス・プレン・アサイラム",
+        "ko": "크로투스 프렌 정신병원",
+        "pl": "Przytułek Crotus Prenn",
+        "pt-BR": "Hospício de Crotus Prenn",
+        "ru": "Психлечебница Кротус Пренн",
+        "th": "สถานบำบัดโครตัส เพรนน์",
+        "tr": "Crotus Prenn Tımarhanesi",
+        "zh-Hans": "克洛普瑞恩疯人院",
+        "zh-Hant": "克洛普瑞恩瘋人院"
+      },
+      "maps": [
+        {
+          "id": "disturbed-ward",
+          "names": {
+            "en": "Disturbed Ward",
+            "de": "Gestörtenabteilung",
+            "es-MX": "Sala de transtornados",
+            "es": "Sala de transtornados",
+            "fr": "Salle des aliénés",
+            "it": "Reparto Squilibrati",
+            "ja": "ディスターブド・ウォード",
+            "ko": "동요하는 병동",
+            "pl": "Niespokojny Oddział",
+            "pt-BR": "Enfermaria Conturbada",
+            "ru": "Отделение для Буйных",
+            "th": "วอร์ดวุ่นวาย",
+            "tr": "Kaçık Koğuşu",
+            "zh-Hans": "精神病房",
+            "zh-Hant": "精神病房"
+          }
+        },
+        {
+          "id": "father-campbells-chapel",
+          "names": {
+            "en": "Father Campbell's Chapel",
+            "de": "Pater Campbells Kapelle",
+            "es-MX": "Capilla del padre Campbell",
+            "es": "Capilla del padre Campbell",
+            "fr": "Chapelle du père Campbell",
+            "it": "Chiesa di Padre Campbell",
+            "ja": "ファザー・キャンベルズ・チャペル",
+            "ko": "캠벨 신부의 예배당",
+            "pl": "Kaplica Ojca Campbella",
+            "pt-BR": "Capela do Padre Campbell",
+            "ru": "Часовня Отца Кэмпбелла",
+            "th": "โบสถ์น้อยของบาทหลวงแคมป์เบล",
+            "tr": "Peder Campbell'in Kilisesi",
+            "zh-Hans": "坎贝尔神父的教堂",
+            "zh-Hant": "坎貝爾神父的教堂"
+          }
+        }
+      ]
+    },
+    {
+      "id": "haddonfield",
+      "names": {
+        "en": "Haddonfield",
+        "ja": "ハドンフィールド",
+        "ko": "해든필드",
+        "ru": "Хэддонфилд",
+        "th": "แฮดดอนฟิลด์",
+        "zh-Hans": "哈登菲尔德",
+        "zh-Hant": "哈登菲爾德"
+      },
+      "maps": [
+        {
+          "id": "lampkin-lane",
+          "names": {
+            "en": "Lampkin Lane",
+            "es-MX": "Avenida Lampkin",
+            "es": "Avenida Lampkin",
+            "ja": "ランプキン・レーン",
+            "ko": "램킨 레인",
+            "pl": "Alejka Lampkin",
+            "pt-BR": "Travessa Lampkin",
+            "ru": "Переулок Лэмпкин",
+            "th": "ตรอกแลมป์คิน",
+            "tr": "Lampkin Sokağı",
+            "zh-Hans": "兰普金街",
+            "zh-Hant": "蘭普金街"
+          }
+        }
+      ]
+    },
+    {
+      "id": "backwater-swamp",
+      "names": {
+        "en": "Backwater Swamp",
+        "de": "Backwater-Sumpf",
+        "es-MX": "Pantano de aguas estancadas",
+        "es": "Pantano de aguas estancadas",
+        "fr": "Marais de Backwater",
+        "it": "Palude Backwater",
+        "ja": "バックウォーター・スワンプ",
+        "ko": "백워터 늪지대",
+        "pl": "Bagienne Rozlewisko",
+        "pt-BR": "Pântano do Remanso",
+        "ru": "Гнилое Болото",
+        "th": "บึงแบ็ควอเตอร์",
+        "tr": "Bataklı Göl",
+        "zh-Hans": "黑水沼泽",
+        "zh-Hant": "黑水沼澤"
+      },
+      "maps": [
+        {
+          "id": "the-pale-rose",
+          "names": {
+            "en": "The Pale Rose",
+            "de": "Die Pale Rose",
+            "es-MX": "La Rosa Pálida",
+            "es": "La rosa pálida",
+            "fr": "Le Pale Rose",
+            "it": "Il Pale Rose",
+            "ja": "ペイル・ローズ",
+            "ko": "페일 로즈 호",
+            "pl": "Blada Róża",
+            "pt-BR": "A Rosa Lívida",
+            "ru": "Бледная Роза",
+            "th": "กุหลาบที่จืดจาง",
+            "tr": "Solmuş Gül",
+            "zh-Hans": "苍白玫瑰",
+            "zh-Hant": "蒼白玫瑰"
+          }
+        },
+        {
+          "id": "grim-pantry",
+          "names": {
+            "en": "Grim Pantry",
+            "de": "Schaurige Speisekammer",
+            "es-MX": "Despensa sombría",
+            "es": "Despensa sombría",
+            "fr": "Cellier sinistre",
+            "it": "Dispensa trucida",
+            "ja": "おぞましい貯蔵室",
+            "ko": "암울한 식료품 저장실",
+            "pl": "Ponura Spiżarnia",
+            "pt-BR": "Despensa Cruel",
+            "ru": "Чудовищная Кладовая",
+            "th": "ห้องอาหารมืดหม่น",
+            "tr": "Kasvetli Kiler",
+            "zh-Hans": "阴森棚屋",
+            "zh-Hant": "陰森棚屋"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lerys-memorial-institute",
+      "names": {
+        "en": "Léry's Memorial Institute",
+        "de": "Lérys Gedenkinstitut",
+        "es-MX": "Instituto Conmemorativo Léry",
+        "es": "Instituto Conmemorativo Léry",
+        "fr": "Institut de la mémoire de Léry",
+        "it": "Istituto Commemorativo Léry",
+        "ja": "レリー記念研究所",
+        "ko": "래리 기념 연구소",
+        "pt-BR": "Instituto Memorial do Léry",
+        "ru": "Мемориальный Институт Лэри",
+        "th": "สถาบันรำลึกของเลรี",
+        "tr": "Léry Ruh Sağlığı Enstitüsü",
+        "zh-Hans": "莱理疗养中心",
+        "zh-Hant": "萊理療養中心"
+      },
+      "maps": [
+        {
+          "id": "treatment-theatre",
+          "names": {
+            "en": "Treatment Theatre",
+            "de": "Behandlungstheater",
+            "es-MX": "Teatro de tratamiento",
+            "es": "Teatro de tratamiento",
+            "fr": "Théâtre de traitement",
+            "it": "Teatro delle cure",
+            "ja": "治療シアター",
+            "ko": "치료 극장",
+            "pl": "Teatr Leczenia",
+            "pt-BR": "Teatro de Tratamento",
+            "ru": "Театр Лечения",
+            "th": "โรงละครการรักษา",
+            "tr": "Tedavi Tiyatrosu",
+            "zh-Hans": "治疗剧场",
+            "zh-Hant": "治療劇場"
+          }
+        }
+      ]
+    },
+    {
+      "id": "red-forest",
+      "names": {
+        "en": "Red Forest",
+        "de": "Roter Wald",
+        "es-MX": "Bosque rojo",
+        "es": "Bosque rojo",
+        "fr": "Forêt rouge",
+        "it": "Foresta rossa",
+        "ja": "レッド・フォレスト",
+        "ko": "붉은 숲",
+        "pl": "Czerwony Las",
+        "pt-BR": "Floresta Vermelha",
+        "ru": "Красный Лес",
+        "th": "ป่าเรดฟอเรสต์",
+        "tr": "Kızıl Orman",
+        "zh-Hans": "红树林",
+        "zh-Hant": "紅樹林"
+      },
+      "maps": [
+        {
+          "id": "mothers-dwelling",
+          "names": {
+            "en": "Mother's Dwelling",
+            "de": "Mutters Behausung",
+            "es-MX": "Morada maternal",
+            "es": "Morada maternal",
+            "fr": "La maison maternelle",
+            "it": "La casetta della mamma",
+            "ja": "マザーズ・ドゥエリング",
+            "ko": "어머니의 집",
+            "pl": "Dom Matki",
+            "pt-BR": "A Casa da Mamãe",
+            "ru": "Обитель Матери",
+            "th": "ที่พำนักของแม่",
+            "tr": "Ana Yuvası",
+            "zh-Hans": "母亲的住所",
+            "zh-Hant": "母親的住所"
+          }
+        },
+        {
+          "id": "the-temple-of-purgation",
+          "names": {
+            "en": "The Temple of Purgation",
+            "de": "Der Tempel der Reinigung",
+            "es-MX": "El Templo de la Purgación",
+            "es": "El Templo de la Purgación",
+            "fr": "Le Temple de purgation",
+            "it": "Il Tempio della Purificazione",
+            "ja": "浄罪の神殿",
+            "ko": "정화의 사원",
+            "pl": "Świątynia Oczyszczenia",
+            "pt-BR": "O Templo da Purgação",
+            "ru": "Храм очищения",
+            "th": "วิหารแห่งการชำระมลทิน",
+            "tr": "Arınma Tapınağı",
+            "zh-Hans": "赎罪神庙",
+            "zh-Hant": "贖罪神廟"
+          }
+        }
+      ]
+    },
+    {
+      "id": "springwood",
+      "names": {
+        "en": "Springwood",
+        "ja": "スプリングウッド",
+        "ko": "스프링우드",
+        "ru": "Спрингвуд",
+        "th": "สปริงวูด",
+        "zh-Hans": "春木镇",
+        "zh-Hant": "春木鎮"
+      },
+      "maps": [
+        {
+          "id": "badham-preschool-i",
+          "names": {
+            "en": "Badham Preschool I",
+            "de": "Badham-Vorschule I",
+            "es-MX": "Guardería Badham I",
+            "es": "Guardería Badham I",
+            "fr": "École maternelle de Badham I",
+            "it": "Scuola materna di Badham I",
+            "ja": "バダム幼稚園 I",
+            "ko": "배드햄 유치원 I",
+            "pl": "Przedszkole w Badham I",
+            "pt-BR": "Escola Primária Badham I",
+            "ru": "Детский Сад Бэдхем I",
+            "th": "โรงเรียนอนุบาลแบดแฮม I",
+            "tr": "Badham Anaokulu I",
+            "zh-Hans": "巴德姆幼儿园 I",
+            "zh-Hant": "巴德姆幼稚園 I"
+          }
+        },
+        {
+          "id": "badham-preschool-ii",
+          "names": {
+            "en": "Badham Preschool II",
+            "de": "Badham-Vorschule II",
+            "es-MX": "Guardería Badham II",
+            "es": "Guardería Badham II",
+            "fr": "École maternelle de Badham II",
+            "it": "Scuola materna di Badham II",
+            "ja": "バダム幼稚園 II",
+            "ko": "배드햄 유치원 II",
+            "pl": "Przedszkole w Badham II",
+            "pt-BR": "Escola Primária Badham II",
+            "ru": "Детский Сад Бэдхем II",
+            "th": "โรงเรียนอนุบาลแบดแฮม II",
+            "tr": "Badham Anaokulu II",
+            "zh-Hans": "巴德姆幼儿园 II",
+            "zh-Hant": "巴德姆幼稚園 II"
+          }
+        },
+        {
+          "id": "badham-preschool-iii",
+          "names": {
+            "en": "Badham Preschool III",
+            "de": "Badham-Vorschule III",
+            "es-MX": "Guardería Badham III",
+            "es": "Guardería Badham III",
+            "fr": "École maternelle de Badham III",
+            "it": "Scuola materna di Badham III",
+            "ja": "バダム幼稚園 III",
+            "ko": "배드햄 유치원 III",
+            "pl": "Przedszkole w Badham III",
+            "pt-BR": "Escola Primária Badham III",
+            "ru": "Детский Сад Бэдхем III",
+            "th": "โรงเรียนอนุบาลแบดแฮม III",
+            "tr": "Badham Anaokulu III",
+            "zh-Hans": "巴德姆幼儿园 III",
+            "zh-Hant": "巴德姆幼稚園 III"
+          }
+        },
+        {
+          "id": "badham-preschool-iv",
+          "names": {
+            "en": "Badham Preschool IV",
+            "de": "Badham-Vorschule IV",
+            "es-MX": "Guardería Badham IV",
+            "es": "Guardería Badham IV",
+            "fr": "École maternelle de Badham IV",
+            "it": "Scuola materna di Badham IV",
+            "ja": "バダム幼稚園 IV",
+            "ko": "배드햄 유치원 IV",
+            "pl": "Przedszkole w Badham IV",
+            "pt-BR": "Escola Primária Badham IV",
+            "ru": "Детский Сад Бэдхем IV",
+            "th": "โรงเรียนอนุบาลแบดแฮม IV",
+            "tr": "Badham Anaokulu IV",
+            "zh-Hans": "巴德姆幼儿园 IV",
+            "zh-Hant": "巴德姆幼稚園 IV"
+          }
+        },
+        {
+          "id": "badham-preschool-v",
+          "names": {
+            "en": "Badham Preschool V",
+            "de": "Badham-Vorschule V",
+            "es-MX": "Guardería Badham V",
+            "es": "Guardería Badham V",
+            "fr": "École maternelle de Badham V",
+            "it": "Scuola materna di Badham V",
+            "ja": "バダム幼稚園 V",
+            "ko": "배드햄 유치원 V",
+            "pl": "Przedszkole w Badham V",
+            "pt-BR": "Escola Primária Badham V",
+            "ru": "Детский Сад Бэдхем V",
+            "th": "โรงเรียนอนุบาลแบดแฮม V",
+            "tr": "Badham Anaokulu V",
+            "zh-Hans": "巴德姆幼儿园 V",
+            "zh-Hant": "巴德姆幼稚園 V"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gideon-meat-plant",
+      "names": {
+        "en": "Gideon Meat Plant",
+        "de": "Gideon-Fleischfabrik",
+        "es-MX": "Planta procesadora de carne Gideon",
+        "es": "Planta procesadora de carne Gideon",
+        "fr": "Usine de conditionnement de viande Gideon",
+        "it": "Mattatoio di Gideon",
+        "ja": "ギデオン食肉工場",
+        "ko": "기디언 고기 공장",
+        "pl": "Zakład Mięsny Gideon",
+        "pt-BR": "Fábrica de Embalagem de Carnes Gideon",
+        "ru": "Мясокомбинат «Гидеон»",
+        "th": "โรงงานเนื้อกิเดี้ยน",
+        "tr": "Gideon Et Fabrikası",
+        "zh-Hans": "吉迪恩肉联厂",
+        "zh-Hant": "吉迪恩肉品加工廠"
+      },
+      "maps": [
+        {
+          "id": "the-game",
+          "names": {
+            "en": "The Game",
+            "de": "Das Spiel",
+            "es-MX": "El juego",
+            "es": "El juego",
+            "fr": "Le jeu",
+            "it": "Il gioco",
+            "ja": "ゲームについて",
+            "ko": "희생제",
+            "pl": "Gra",
+            "pt-BR": "O Jogo",
+            "ru": "Игра",
+            "th": "เกม",
+            "tr": "Oyun",
+            "zh-Hans": "游戏篇",
+            "zh-Hant": "遊戲方式"
+          }
+        }
+      ]
+    },
+    {
+      "id": "yamaoka-estate",
+      "names": {
+        "en": "Yamaoka Estate",
+        "de": "Yamaoka-Anwesen",
+        "es-MX": "Residencia Yamaoka",
+        "es": "Residencia Yamaoka",
+        "fr": "Propriété Yamaoka",
+        "it": "Tenuta Yamaoka",
+        "ja": "山岡邸",
+        "ko": "야마오카 사유지",
+        "pl": "Posiadłość Rodziny Yamaoka",
+        "pt-BR": "Propriedade dos Yamaoka",
+        "ru": "Поместье Ямаоки",
+        "th": "ที่ดินของตระกูลยามาโอกะ",
+        "tr": "Yamaoka Malikânesi",
+        "zh-Hans": "山冈家族地产",
+        "zh-Hant": "山岡家族地產"
+      },
+      "maps": [
+        {
+          "id": "family-residence",
+          "names": {
+            "en": "Family Residence",
+            "de": "Familiensitz",
+            "es-MX": "Residencia familiar",
+            "es": "Residencia familiar",
+            "fr": "Résidence familiale",
+            "it": "Residenza di famiglia",
+            "ja": "ファミリー・レジデンス",
+            "ko": "야마오카 가문 주택",
+            "pl": "Rezydencja Rodzinna",
+            "pt-BR": "Residência da Família",
+            "ru": "Семейная Резиденция",
+            "th": "ที่อยู่อาศัยของครอบครัว",
+            "tr": "Aile Konutu",
+            "zh-Hans": "家族宅邸",
+            "zh-Hant": "家宅"
+          }
+        },
+        {
+          "id": "sanctum-of-wrath",
+          "names": {
+            "en": "Sanctum of Wrath",
+            "de": "Heiligtum des Zorns",
+            "es-MX": "Santuario de la ira",
+            "es": "Santuario de la cólera",
+            "fr": "Sanctuaire du courroux",
+            "it": "Sacrario dell'Ira",
+            "ja": "怒りの聖所",
+            "ko": "분노의 사원",
+            "pl": "Sanktuarium Gniewu",
+            "pt-BR": "Santuário da Ira",
+            "ru": "Прибежище гнева",
+            "th": "สักการสถานแห่งโทสะ",
+            "tr": "Hiddet Sunağı",
+            "zh-Hans": "愤怒圣所",
+            "zh-Hant": "怒火聖地"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ormond",
+      "names": {
+        "en": "Ormond",
+        "ja": "オーモンド",
+        "ko": "오르몬드",
+        "ru": "Ормонд",
+        "th": "ออร์มอนด์",
+        "zh-Hans": "奥蒙德",
+        "zh-Hant": "奧蒙德"
+      },
+      "maps": [
+        {
+          "id": "mount-ormond-resort",
+          "names": {
+            "en": "Mount Ormond Resort",
+            "de": "Skiort am Mount Ormond",
+            "es-MX": "Complejo del monte Ormond",
+            "es": "Complejo del monte Ormond",
+            "fr": "Station du mont Ormond",
+            "it": "Resort del Monte Ormond",
+            "ja": "オーモンド山のリゾート",
+            "ko": "오르몬드 산 리조트",
+            "pl": "Ośrodek Mount Ormond",
+            "pt-BR": "Resort do Monte Ormond",
+            "ru": "Курорт «Гора Ормонд»",
+            "th": "ที่พักตากอากาศเขาออร์มอนด์",
+            "tr": "Ormond Dağı Tatil Yeri",
+            "zh-Hans": "奥蒙德山度假村",
+            "zh-Hant": "奧蒙德山度假村"
+          }
+        },
+        {
+          "id": "ormond-lake-mine",
+          "names": {
+            "en": "Ormond Lake Mine",
+            "de": "Mine am Ormond-See",
+            "es-MX": "Mina del lago Ormond",
+            "es": "Mina del lago Ormond",
+            "fr": "Mine du lac d'Ormond",
+            "it": "Miniera del lago Ormond",
+            "ja": "オーモンド湖採掘場",
+            "ko": "오르몬드 호수 채굴장",
+            "pl": "Kopalnia nad jeziorem Ormond",
+            "pt-BR": "Mina do Lago de Ormond",
+            "ru": "Шахта у озера Ормонд",
+            "th": "เหมืองทะเลสาบออร์มอนด์",
+            "tr": "Ormond Gölü Madeni",
+            "zh-Hans": "奥蒙德湖矿场",
+            "zh-Hant": "奧蒙德湖礦場"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hawkins-national-laboratory",
+      "names": {
+        "en": "Hawkins National Laboratory",
+        "es-MX": "Laboratorio Nacional de Hawkins",
+        "es": "Laboratorio Nacional de Hawkins",
+        "fr": "Laboratoire national d’Hawkins",
+        "it": "Laboratorio Nazionale di Hawkins",
+        "ja": "ホーキンス国立研究所",
+        "ko": "호킨스 국립 연구소",
+        "pt-BR": "Laboratório Nacional de Hawkins",
+        "ru": "Национальная лаборатория Хоукинса",
+        "th": "ห้องทดลองแห่งชาติเมืองฮอว์กินส์",
+        "tr": "Hawkins Ulusal Laboratuvarı",
+        "zh-Hans": "霍金斯国家实验室",
+        "zh-Hant": "霍金斯國家實驗室"
+      },
+      "maps": [
+        {
+          "id": "the-underground-complex",
+          "names": {
+            "en": "The Underground Complex",
+            "de": "Der Untergrundkomplex",
+            "es-MX": "El complejo subterráneo",
+            "es": "El complejo subterráneo",
+            "fr": "Le complexe souterrain",
+            "it": "Il Complesso sotterraneo",
+            "ja": "地下施設",
+            "ko": "지하 단지",
+            "pl": "Podziemny kompleks",
+            "pt-BR": "O Complexo Subterrâneo",
+            "ru": "Подземный комплекс",
+            "th": "สิ่งก่อสร้างชั้นใต้ดิน",
+            "tr": "Yeraltı Yerleşkesi",
+            "zh-Hans": "地下设施",
+            "zh-Hant": "地下設施"
+          }
+        }
+      ]
+    },
+    {
+      "id": "grave-of-glenvale",
+      "names": {
+        "en": "Grave of Glenvale",
+        "de": "Grab von Glenvale",
+        "es-MX": "Tumba de Glenvale",
+        "es": "Tumba de Glenvale",
+        "fr": "Tombe de Glenvale",
+        "it": "Tomba di Glenvale",
+        "ja": "グレンベールの墓",
+        "ko": "글렌베일의 무덤",
+        "pl": "Grób w Glenvale",
+        "pt-BR": "Túmulo de Glenvale",
+        "ru": "Могила в Гленвейле",
+        "th": "สุสานแห่งเกลนเวล",
+        "tr": "Glenvale Kabristanı",
+        "zh-Hans": "格伦威尔墓地",
+        "zh-Hant": "葛倫維爾之墓"
+      },
+      "maps": [
+        {
+          "id": "dead-dawg-saloon",
+          "names": {
+            "en": "Dead Dawg Saloon",
+            "es-MX": "Cantina el perro muerto",
+            "es": "Salón Dead Dawg",
+            "fr": "Saloon de Dead Dawg",
+            "it": "Saloon Dead Dawg",
+            "ja": "死んだ犬の酒場",
+            "ko": "폐허가 된 술집",
+            "pl": "Knajpa pod Martwym Ziomkiem",
+            "pt-BR": "Saloon do Cachorro Morto",
+            "ru": "Салун «Мертвяк вусмерть»",
+            "th": "ร้านเหล้าของเพื่อนที่ตายไปแล้ว",
+            "tr": "Ölü İt Barı",
+            "zh-Hans": "死狗酒馆",
+            "zh-Hant": "死狗沙龍"
+          }
+        }
+      ]
+    },
+    {
+      "id": "silent-hill",
+      "names": {
+        "en": "Silent Hill",
+        "ja": "サイレントヒル",
+        "ko": "사일런트 힐",
+        "ru": "Сайлент Хилл",
+        "th": "ไซเลนต์ฮิล",
+        "zh-Hans": "寂静岭",
+        "zh-Hant": "沉默之丘"
+      },
+      "maps": [
+        {
+          "id": "midwich-elementary-school",
+          "names": {
+            "en": "Midwich Elementary School",
+            "es-MX": "Primaria Midwich",
+            "es": "Escuela de primaria Midwich",
+            "fr": "École primaire Midwich",
+            "it": "Scuola elementare Midwich",
+            "ja": "ミッドウィッチ小学校",
+            "ko": "미드위치 초등학교",
+            "pl": "Szkoła podstawowa Midwich",
+            "pt-BR": "Escola Primária de Midwich",
+            "ru": "Начальная школа Мидвича",
+            "th": "โรงเรียนประถมมิดวิช",
+            "tr": "Midwich İlköğretim Okulu",
+            "zh-Hans": "米德维奇小学",
+            "zh-Hant": "米德威治小學"
+          }
+        }
+      ]
+    },
+    {
+      "id": "raccoon-city",
+      "names": {
+        "en": "Raccoon City",
+        "ja": "ラクーンシティ",
+        "ko": "라쿤 시티",
+        "ru": "Раккун-Сити",
+        "th": "แร็กคูนซิตี้",
+        "zh-Hans": "浣熊市",
+        "zh-Hant": "拉昆市"
+      },
+      "maps": [
+        {
+          "id": "raccoon-city-police-station",
+          "names": {
+            "en": "Raccoon City Police Station"
+          }
+        },
+        {
+          "id": "raccoon-city-police-station-east-wing",
+          "names": {
+            "en": "Raccoon City Police Station East Wing",
+            "de": "Ostflügel der Polizeistation von Raccoon City",
+            "es-MX": "Ala este del departamento de policía de Raccoon City",
+            "es": "Ala este de la comisaría de Raccoon City",
+            "fr": "Aile est du Commissariat de Raccoon City",
+            "it": "Ala est della Stazione di polizia di Raccoon City",
+            "ja": "ラクーンシティ警察署東棟",
+            "ko": "라쿤 시티 경찰서 동쪽 부속 건물",
+            "pl": "Posterunek policji Raccoon City – wschodnie skrzydło",
+            "pt-BR": "Ala Leste da Delegacia de Raccoon City",
+            "ru": "Восточное крыло полицейского участка Раккун-Сити",
+            "th": "ปีกตะวันออกของสถานีตำรวจเมืองแร็กคูนซิตี้",
+            "tr": "Raccoon City Polis Karakolu Doğu Kanadı",
+            "zh-Hans": "浣熊市警察局东区",
+            "zh-Hant": "拉昆市警察局東側"
+          }
+        },
+        {
+          "id": "raccoon-city-police-station-west-wing",
+          "names": {
+            "en": "Raccoon City Police Station West Wing",
+            "de": "Westflügel der Polizeistation von Raccoon City",
+            "es-MX": "Ala oeste del departamento de policía de Raccoon City",
+            "es": "Ala oeste de la comisaría de Raccoon City",
+            "fr": "Aile ouest du Commissariat de Raccoon City",
+            "it": "Ala ovest della Stazione di polizia di Raccoon City",
+            "ja": "ラクーンシティ警察署西棟",
+            "ko": "라쿤 시티 경찰서 서쪽 부속 건물",
+            "pl": "Posterunek policji Raccoon City – zachodnie skrzydło",
+            "pt-BR": "Ala Oeste da Delegacia de Raccoon City",
+            "ru": "Западное крыло полицейского участка Раккун-Сити",
+            "th": "สถานีตำรวจเมืองแร็กคูนซิตี้ปีกตะวันตก",
+            "tr": "Raccoon City Polis Karakolu Batı Kanadı",
+            "zh-Hans": "浣熊市警察局西区",
+            "zh-Hant": "拉昆市警察局西側"
+          }
+        }
+      ]
+    },
+    {
+      "id": "forsaken-boneyard",
+      "names": {
+        "en": "Forsaken Boneyard",
+        "de": "Einsamer Friedhof",
+        "es-MX": "Cementerio abandonado",
+        "es": "Cementerio abandonado",
+        "fr": "Cimetière abandonné",
+        "it": "Cimitero abbandonato",
+        "ja": "荒れ果てた墓場",
+        "ko": "버림받은 묘지",
+        "pl": "Zapomniany cmentarz",
+        "pt-BR": "Cemitério Renegado",
+        "ru": "Заброшенное кладбище",
+        "th": "ป่าช้าร้าง",
+        "tr": "Terk Edilmiş Mezarlık",
+        "zh-Hans": "遗弃埋骨地",
+        "zh-Hant": "遺棄墓園"
+      },
+      "maps": [
+        {
+          "id": "eyrie-of-crows",
+          "names": {
+            "en": "Eyrie of Crows",
+            "de": "Krähenhorst",
+            "es-MX": "Aviario de cuervos",
+            "es": "Nido de cuervos",
+            "fr": "Aire de corbeaux",
+            "it": "Nido di corvi",
+            "ja": "カラスの巣",
+            "ko": "까마귀 둥지",
+            "pl": "Gniazdo kruków",
+            "pt-BR": "Ninho dos Corvos",
+            "ru": "Воронье гнездовье",
+            "th": "รังกา",
+            "tr": "Karga Yuvası",
+            "zh-Hans": "乌鸦巢穴",
+            "zh-Hant": "烏鴉高塔"
+          }
+        },
+        {
+          "id": "dead-sands",
+          "names": {
+            "en": "Dead Sands",
+            "de": "Tote Sande",
+            "es-MX": "Arenas mortales",
+            "es": "Arenas muertas",
+            "fr": "Sables morts",
+            "it": "Sabbie morte",
+            "ja": "死の砂漠",
+            "ko": "죽음의 모래",
+            "pl": "Martwe piaski",
+            "pt-BR": "Areias Mortas",
+            "ru": "Бесплодные пески",
+            "th": "ทรายมฤตยู",
+            "tr": "Ölü Kumlar",
+            "zh-Hans": "死亡沙漠",
+            "zh-Hant": "死亡沙漠"
+          }
+        }
+      ]
+    },
+    {
+      "id": "withered-isle",
+      "names": {
+        "en": "Withered Isle",
+        "de": "Verkümmerte Insel",
+        "es-MX": "Isla marchita",
+        "es": "Isla marchita",
+        "fr": "Île flétrie",
+        "it": "Isolotto putrefatto",
+        "ja": "枯死の島",
+        "ko": "메마른 섬",
+        "pl": "Uschnięta Wyspa",
+        "pt-BR": "Ilha sem Vida",
+        "ru": "Зачахший остров",
+        "th": "เกาะโรยรา",
+        "tr": "Solup Gitmiş Ada",
+        "zh-Hans": "凋零岛",
+        "zh-Hant": "荒蕪之島"
+      },
+      "maps": [
+        {
+          "id": "garden-of-joy",
+          "names": {
+            "en": "Garden of Joy",
+            "de": "Garten der Freude",
+            "es-MX": "Jardín de dicha",
+            "es": "Jardín del Júbilo",
+            "fr": "Jardin de la joie",
+            "it": "Giardino di gioia",
+            "ja": "喜びの庭",
+            "ko": "즐거움의 정원",
+            "pl": "Ogród Radości",
+            "pt-BR": "Jardim da Alegria",
+            "ru": "Сад Счастья",
+            "th": "สวนสำราญ",
+            "tr": "Neşe Bahçeleri",
+            "zh-Hans": "极乐园",
+            "zh-Hant": "樂園"
+          }
+        },
+        {
+          "id": "greenville-square",
+          "names": {
+            "en": "Greenville Square",
+            "de": "Hauptplatz von Greenville",
+            "es-MX": "Plaza de Greenville",
+            "es": "Plaza de Greenville",
+            "fr": "Place de Greenville",
+            "ja": "グリーンビル広場",
+            "ko": "그린빌 광장",
+            "pl": "Plac Greenville",
+            "pt-BR": "Praça de Greenville",
+            "ru": "Площадь Гринвилла",
+            "th": "จัตุรัสกรีนวิลล์",
+            "tr": "Greenville Meydanı",
+            "zh-Hans": "格林维尔广场",
+            "zh-Hant": "格林維爾廣場"
+          }
+        },
+        {
+          "id": "freddy-fazbears-pizza",
+          "names": {
+            "en": "Freddy Fazbear's Pizza",
+            "de": "Freddy Fazbear’s Pizza",
+            "it": "Pizzeria Freddy Fazbear",
+            "ja": "フレディファズベアーズピザ",
+            "ko": "프레디 파즈베어의 피자 가게",
+            "pl": "Pizzeria Freddy Fazbear",
+            "pt-BR": "Pizzaria do Freddy Fazbear",
+            "ru": "Пиццерия Фредди Фазбера",
+            "th": "พิซซ่าของเฟรดดี้ แฟซแบร์",
+            "zh-Hans": "费斯熊弗莱迪的披萨店",
+            "zh-Hant": "費斯熊佛萊迪的披薩店"
+          }
+        },
+        {
+          "id": "fallen-refuge",
+          "names": {
+            "en": "Fallen Refuge",
+            "de": "Gefallene Zuflucht",
+            "es-MX": "Refugio caído",
+            "es": "Refugio caído",
+            "fr": "Refuge perdu",
+            "it": "Rifugio caduto",
+            "ja": "落ちた避難所",
+            "ko": "몰락한 피난처",
+            "pl": "Upadły azyl",
+            "pt-BR": "Refúgio Caído",
+            "ru": "Павший приют",
+            "th": "ที่หลบภัยอันล่มสลาย",
+            "tr": "Kayıp Sığınak",
+            "zh-Hans": "沦陷避难所",
+            "zh-Hant": "墮落的避難所"
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-decimated-borgo",
+      "names": {
+        "en": "The Decimated Borgo",
+        "de": "Das dezimierte Borgo",
+        "es-MX": "El pueblo diezmado",
+        "es": "El Burgo diezmado",
+        "fr": "Le Borgo décimé",
+        "it": "Il borgo decimato",
+        "ja": "壊滅したボルゴ",
+        "ko": "대량 학살된 마을",
+        "pl": "Zdziesiątkowane Borgo",
+        "pt-BR": "Borgo Dizimado",
+        "ru": "Разоренная деревушка-борго",
+        "th": "ชานเมืองย่อยยับ",
+        "tr": "Harabe Borgo",
+        "zh-Hans": "废墟乡镇",
+        "zh-Hant": "博爾戈廢墟"
+      },
+      "maps": [
+        {
+          "id": "the-shattered-square",
+          "names": {
+            "en": "The Shattered Square",
+            "de": "Der zerstörte Platz",
+            "es-MX": "El cuadrado roto",
+            "es": "La plaza desolada",
+            "fr": "La place dévastée",
+            "it": "La piazza distrutta",
+            "ja": "瓦礫と化した広場",
+            "ko": "산산조각 난 광장",
+            "pl": "Roztrzaskany plac",
+            "pt-BR": "Praça Arrasada",
+            "ru": "Разрушенная площадь",
+            "th": "จัตุรัสพินาศ",
+            "tr": "Parçalanmış Meydan",
+            "zh-Hans": "残垣广场",
+            "zh-Hant": "殘破廣場"
+          }
+        },
+        {
+          "id": "forgotten-ruins",
+          "names": {
+            "en": "Forgotten Ruins",
+            "de": "Vergessene Ruinen",
+            "es-MX": "Ruinas olvidadas",
+            "es": "Ruinas olvidadas",
+            "fr": "Ruines oubliées",
+            "it": "Rovine dimenticate",
+            "ja": "忘れ去られた遺跡",
+            "ko": "잊혀진 유적지",
+            "pl": "Zapomniane Ruiny",
+            "pt-BR": "Ruínas Esquecidas",
+            "ru": "Забытые руины",
+            "th": "ซากปรักที่ถูกลืม",
+            "tr": "Unutulmuş Harabeler",
+            "zh-Hans": "遗忘废墟",
+            "zh-Hant": "忘卻遺跡"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dvarka-deepwood",
+      "names": {
+        "en": "Dvarka Deepwood",
+        "de": "Dvarka-Dschungel",
+        "es-MX": "Bosque espeso de Dvarka",
+        "es": "Espesura de Dvarka",
+        "fr": "Forêt profonde de Dvarka",
+        "it": "Foresta ombrosa di Dvarka",
+        "ja": "ドヴァルカ・ディープウッド",
+        "ko": "드바르카의 깊은 숲속",
+        "pl": "Gęsty las Dvarki",
+        "pt-BR": "Floresta de Dvarka",
+        "ru": "Заросли Дварки",
+        "th": "ป่าลึกบนดวาร์คา",
+        "tr": "Dvarka Ormanı",
+        "zh-Hans": "德瓦尔卡深林",
+        "zh-Hant": "德瓦卡星密林"
+      },
+      "maps": [
+        {
+          "id": "toba-landing",
+          "names": {
+            "en": "Toba Landing",
+            "de": "Toba-Landeplatz",
+            "es-MX": "Desembarco en Toba",
+            "es": "Aterrizaje en Toba",
+            "fr": "Site d'atterrissage de Toba",
+            "it": "Approdo al lago Toba",
+            "ja": "トーバ着陸地点",
+            "ko": "토바 착륙",
+            "pl": "Ziemie Toba",
+            "pt-BR": "Pouso do Lago Toba",
+            "ru": "Площадка Тоба",
+            "th": "ท่าโทบา",
+            "tr": "Toba Çıkarması",
+            "zh-Hans": "多巴着陆点",
+            "zh-Hant": "托巴登陸艦"
+          }
+        },
+        {
+          "id": "nostromo-wreckage",
+          "names": {
+            "en": "Nostromo Wreckage",
+            "de": "Nostromo-Wrack",
+            "es-MX": "Ruinas de la Nostromo",
+            "es": "Restos de la Nostromo",
+            "fr": "Épave du Nostromo",
+            "it": "Relitto Nostromo",
+            "ja": "ノストロモ号の残骸",
+            "ko": "노스트로모 잔해",
+            "pl": "Wrak Nostromo",
+            "pt-BR": "Destroços da Nostromo",
+            "ru": "Крушение «Ностромо»",
+            "th": "ซากยานนอสโตรโม",
+            "tr": "Nostromo Enkazı",
+            "zh-Hans": "诺斯托罗莫号残骸",
+            "zh-Hant": "諾史莫號殘骸"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sleepless-district",
+      "names": {
+        "en": "Sleepless District",
+        "de": "Schlafloses Viertel",
+        "es-MX": "Distrito insomne",
+        "es": "Barrio insomne",
+        "fr": "Quartier qui jamais ne dort",
+        "it": "Distretto insonne",
+        "ja": "眠らない界隈",
+        "ko": "잠들지 않는 구역",
+        "pl": "Bezsenna dzielnica",
+        "pt-BR": "Distrito Insone",
+        "ru": "Бессонный район",
+        "th": "ย่านไร้นิทรา",
+        "tr": "Uykusuz Muhit",
+        "zh-Hans": "不眠之区",
+        "zh-Hant": "不眠之區"
+      },
+      "maps": [
+        {
+          "id": "tricksters-delusion",
+          "names": {
+            "en": "Trickster's Delusion",
+            "de": "Illusion des Tricksters",
+            "es-MX": "Delirio del Embaucador",
+            "es": "Delirio del Traicionero",
+            "fr": "Illusion du Farceur",
+            "it": "Illusione dell'Ingannatore",
+            "ja": "トリックスターの妄想",
+            "ko": "트릭스터의 망상",
+            "pl": "Urojenia Magika",
+            "pt-BR": "Desilusão do Trapaça",
+            "ru": "Морок Трюкача",
+            "th": "ภาพหลอนของทริกสเตอร์",
+            "tr": "Dümenci'nin Yanılması",
+            "zh-Hans": "骗术师的妄想",
+            "zh-Hant": "騙術師的妄想"
+          }
+        }
+      ]
+    }
+  ]
+}

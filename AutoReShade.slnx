@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AutoReShade.Core/AutoReShade.Core.csproj" />
+    <Project Path="src/AutoReShade/AutoReShade.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AutoReShade.Tests/AutoReShade.Tests.csproj" />
+  </Folder>
+</Solution>
