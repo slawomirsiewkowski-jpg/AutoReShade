@@ -63,6 +63,7 @@ public partial class MainWindow : Window
         _loading = true;
         ReShadeFolderBox.Text = S.ReShadeDirectory ?? string.Empty;
         SwitchingEnabledBox.IsChecked = S.PresetSwitchingEnabled;
+        LobbyPresetBox.IsChecked = S.ShouldUseDefaultPresetInLobby;
 
         OverlayEnabledBox.IsChecked = S.Overlay.Enabled;
         SizeSlider.Value = Math.Round(S.Overlay.Size * 100);
@@ -129,10 +130,12 @@ public partial class MainWindow : Window
         WindowModeText.Text = WindowModeDescription(game);
 
         var map = _app.CurrentMap;
-        MapStatusText.Text = map?.DisplayName ?? "None yet";
-        MapDetailText.Text = map is null
-            ? "Detected on the loading screen"
-            : $"{_app.Catalog.FindRealm(map.RealmId)?.DisplayName} - {(_app.CurrentMapSource == MapSource.Manual ? "chosen manually" : "detected")} at {_app.CurrentMapTime:HH:mm:ss}";
+        MapStatusText.Text = map?.DisplayName ?? (_app.LobbySince is null ? "None yet" : "In the lobby");
+        MapDetailText.Text = map is not null
+            ? $"{_app.Catalog.FindRealm(map.RealmId)?.DisplayName} - {(_app.CurrentMapSource == MapSource.Manual ? "chosen manually" : "detected")} at {_app.CurrentMapTime:HH:mm:ss}"
+            : _app.LobbySince is { } since
+                ? $"Match over at {since:HH:mm:ss} - the clock comes back when the next map loads"
+                : "Detected on the loading screen";
         foreach (var realm in _realms)
             foreach (var row in realm.Maps)
                 row.IsCurrent = map is not null && row.Map.Id == map.Id;
@@ -423,6 +426,13 @@ public partial class MainWindow : Window
         if (_loading) return;
         S.PresetSwitchingEnabled = SwitchingEnabledBox.IsChecked == true;
         _app.FlushSettings();
+    }
+
+    private void OnLobbyPresetChanged(object sender, RoutedEventArgs e)
+    {
+        if (_loading) return;
+        S.ShouldUseDefaultPresetInLobby = LobbyPresetBox.IsChecked == true;
+        _app.SettingsChanged();
     }
 
     private void OnDefaultPresetChanged(object sender, SelectionChangedEventArgs e)

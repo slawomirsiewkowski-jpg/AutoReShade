@@ -66,9 +66,10 @@ public sealed class MapCatalog
     private readonly Dictionary<string, MapInfo> _mapsById;
     private readonly Dictionary<string, RealmInfo> _realmsById;
 
-    private MapCatalog(IReadOnlyList<RealmInfo> realms, int version)
+    private MapCatalog(IReadOnlyList<RealmInfo> realms, IReadOnlyDictionary<string, string> readyButtonNames, int version)
     {
         Realms = realms;
+        ReadyButtonNames = readyButtonNames;
         Version = version;
         Maps = realms.SelectMany(r => r.Maps).ToList();
         _mapsById = Maps.ToDictionary(m => m.Id, StringComparer.OrdinalIgnoreCase);
@@ -78,6 +79,9 @@ public sealed class MapCatalog
     public int Version { get; }
     public IReadOnlyList<RealmInfo> Realms { get; }
     public IReadOnlyList<MapInfo> Maps { get; }
+
+    /// <summary>Game language code to the text of the lobby's Ready button.</summary>
+    public IReadOnlyDictionary<string, string> ReadyButtonNames { get; }
 
     public MapInfo? FindMap(string? id) => id is not null && _mapsById.TryGetValue(id, out var m) ? m : null;
     public RealmInfo? FindRealm(string? id) => id is not null && _realmsById.TryGetValue(id, out var r) ? r : null;
@@ -127,6 +131,7 @@ public sealed class MapCatalog
         var file = JsonSerializer.Deserialize<MapListFile>(json, JsonOptions)
             ?? throw new InvalidDataException("Map list is empty.");
         file.Realms ??= new List<RealmDto>();
+        file.ReadyButton ??= new Dictionary<string, string>();
         foreach (var realm in file.Realms)
         {
             if (string.IsNullOrWhiteSpace(realm.Id))
@@ -146,6 +151,9 @@ public sealed class MapCatalog
 
     private static void Merge(MapListFile target, MapListFile extra)
     {
+        foreach (var (lang, text) in extra.ReadyButton!)
+            target.ReadyButton![lang] = text;
+
         foreach (var extraRealm in extra.Realms!)
         {
             var realm = target.Realms!.FirstOrDefault(r => string.Equals(r.Id, extraRealm.Id, StringComparison.OrdinalIgnoreCase));
@@ -191,7 +199,7 @@ public sealed class MapCatalog
             }
             realms.Add(new RealmInfo(realm.Id!, Clean(realm.Names!), maps));
         }
-        return new MapCatalog(realms, file.Version);
+        return new MapCatalog(realms, Clean(file.ReadyButton!), file.Version);
     }
 
     private static IReadOnlyDictionary<string, string> Clean(Dictionary<string, string> names) =>
@@ -201,6 +209,7 @@ public sealed class MapCatalog
     private sealed class MapListFile
     {
         [JsonPropertyName("version")] public int Version { get; set; }
+        [JsonPropertyName("readyButton")] public Dictionary<string, string>? ReadyButton { get; set; }
         [JsonPropertyName("realms")] public List<RealmDto>? Realms { get; set; }
     }
 

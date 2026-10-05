@@ -23,6 +23,44 @@ public class SettingsTests
     }
 
     [Fact]
+    public void LobbyUsesTheDefaultPreset()
+    {
+        var s = new AppSettings { DefaultPreset = @"C:\p\default.ini" };
+
+        var preset = s.ResolveLobbyPreset();
+
+        Assert.Equal(@"C:\p\default.ini", preset);
+    }
+
+    [Fact]
+    public void LobbyKeepsTheMatchPresetWhenTheOptionIsOff()
+    {
+        var s = new AppSettings { DefaultPreset = @"C:\p\default.ini", ShouldUseDefaultPresetInLobby = false };
+
+        var preset = s.ResolveLobbyPreset();
+
+        Assert.Null(preset);
+    }
+
+    [Fact]
+    public void OlderSettingsFilesGetTheLobbyPresetOptionOn()
+    {
+        var file = Path.Combine(Path.GetTempPath(), $"settings-{Guid.NewGuid():N}.json");
+        try
+        {
+            File.WriteAllText(file, """{ "settingsVersion": 1, "defaultPreset": "C:\\p\\default.ini" }""");
+
+            var s = new SettingsStore(file).Load();
+
+            Assert.True(s.ShouldUseDefaultPresetInLobby);
+        }
+        finally
+        {
+            File.Delete(file);
+        }
+    }
+
+    [Fact]
     public void ShortcutSlotsStayStableWhenPresetsChange()
     {
         var s = new AppSettings { DefaultPreset = @"C:\p\default.ini" };

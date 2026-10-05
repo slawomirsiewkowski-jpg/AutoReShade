@@ -25,6 +25,7 @@ public sealed class DetectionService : IDisposable
     private Thread? _thread;
     private TesseractOcr? _ocr;
     private MapNameMatcher _matcher;
+    private LobbyScreenMatcher _lobby;
     private MapDetector? _detector;
     private int _debugCaptureCount;
 
@@ -35,6 +36,7 @@ public sealed class DetectionService : IDisposable
         _game = game;
         _overlayArea = overlayArea;
         _matcher = new MapNameMatcher(catalog);
+        _lobby = new LobbyScreenMatcher(catalog);
     }
 
     public string? EngineError { get; private set; }
@@ -47,6 +49,9 @@ public sealed class DetectionService : IDisposable
 
     /// <summary>Raised on the detection thread when a different map has been confirmed.</summary>
     public event Action<MapInfo>? MapConfirmed;
+
+    /// <summary>Raised on the detection thread when the player is back in the lobby (the match is over).</summary>
+    public event Action? LobbyConfirmed;
 
     public void Start()
     {
@@ -65,9 +70,10 @@ public sealed class DetectionService : IDisposable
         {
             var current = _detector?.CurrentMap;
             _matcher = new MapNameMatcher(catalog);
+            _lobby = new LobbyScreenMatcher(catalog);
             if (_ocr is not null)
             {
-                _detector = new MapDetector(_matcher, _ocr);
+                _detector = new MapDetector(_matcher, _lobby, _ocr);
                 _detector.SetCurrentMap(current is null ? null : catalog.FindMap(current.Id));
             }
         }
@@ -84,7 +90,7 @@ public sealed class DetectionService : IDisposable
             using var crop = fullFrame.Clone(rect, PixelFormat.Format24bppRgb);
             using (var prepared = FramePreprocessor.Prepare(crop, fullFrame.Height, threshold))
                 preparedPreview = new Bitmap(prepared.Image);
-            var tester = new MapDetector(_matcher, _ocr) { Threshold = threshold };
+            var tester = new MapDetector(_matcher, _lobby, _ocr) { Threshold = threshold };
             return tester.ProcessRegion(crop, fullFrame.Height);
         }
     }
@@ -144,6 +150,12 @@ public sealed class DetectionService : IDisposable
             Log.Info($"Detected map {map.DisplayName} (score {result.Match.Score:0.00}) from \"{result.Match.Best?.SourceText}\" in {result.Elapsed.TotalMilliseconds:0} ms");
             MapConfirmed?.Invoke(map);
         }
+
+        if (result.LobbyConfirmed)
+        {
+            Log.Info("Back in the lobby; the match is over");
+            LobbyConfirmed?.Invoke();
+        }
     }
 
     private bool EnsureEngine()
@@ -156,7 +168,7 @@ public sealed class DetectionService : IDisposable
             TesseractOcr.EnsureBuiltInLanguage(_paths.TessdataDir);
             var languages = TesseractOcr.AvailableLanguages(_paths.TessdataDir);
             _ocr = new TesseractOcr(_paths.TessdataDir, languages);
-            _detector = new MapDetector(_matcher, _ocr);
+            _detector = new MapDetector(_matcher, _lobby, _ocr);
             EngineLanguages = _ocr.Languages;
             Log.Info($"OCR engine ready (languages: {_ocr.Languages})");
             return true;

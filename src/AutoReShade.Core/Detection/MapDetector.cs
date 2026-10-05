@@ -10,12 +10,13 @@ public sealed record DetectionResult(
     bool SkippedOcr,
     double BrightFraction,
     MapInfo? NewlyConfirmed,
+    bool LobbyConfirmed,
     TimeSpan Elapsed);
 
 /// <summary>
-/// Reads one frame (or the detection region of it) and decides whether a new map has been loaded.
-/// A map is confirmed after a near-perfect read, or after the same map is read twice in a row,
-/// so a single bad OCR result never switches anything.
+/// Reads one frame (or the detection region of it) and decides whether a new map has been loaded
+/// or the player is back in the lobby. A map is confirmed after a near-perfect read, or after the
+/// same map is read twice in a row, so a single bad OCR result never switches anything.
 /// </summary>
 public sealed class MapDetector
 {
@@ -26,14 +27,20 @@ public sealed class MapDetector
     public const double MinBrightFraction = 0.0005;
     public const double MaxBrightFraction = 0.25;
 
+    /// <summary>The lobby counts only after this many reads in a row, so one odd frame never ends a match.</summary>
+    public const int LobbyConfirmReads = 2;
+
     private readonly MapNameMatcher _matcher;
+    private readonly LobbyScreenMatcher _lobby;
     private readonly TesseractOcr _ocr;
     private string? _pendingMapId;
     private int _pendingCount;
+    private int _lobbyReads;
 
-    public MapDetector(MapNameMatcher matcher, TesseractOcr ocr)
+    public MapDetector(MapNameMatcher matcher, LobbyScreenMatcher lobby, TesseractOcr ocr)
     {
         _matcher = matcher;
+        _lobby = lobby;
         _ocr = ocr;
     }
 
@@ -62,12 +69,29 @@ public sealed class MapDetector
         var watch = Stopwatch.StartNew();
         using var prepared = FramePreprocessor.Prepare(regionImage, frameHeight, Threshold);
         if (prepared.BrightFraction < MinBrightFraction || prepared.BrightFraction > MaxBrightFraction)
-            return new DetectionResult(Array.Empty<string>(), MatchResult.None, true, prepared.BrightFraction, null, watch.Elapsed);
+            return new DetectionResult(Array.Empty<string>(), MatchResult.None, true, prepared.BrightFraction, null, false, watch.Elapsed);
 
         var lines = _ocr.ReadLines(prepared.Image);
         var match = _matcher.Match(lines);
         var confirmed = Confirm(match);
-        return new DetectionResult(lines, match, false, prepared.BrightFraction, confirmed, watch.Elapsed);
+        var lobbyConfirmed = ConfirmLobby(lines);
+        return new DetectionResult(lines, match, false, prepared.BrightFraction, confirmed, lobbyConfirmed, watch.Elapsed);
+    }
+
+    /// <summary>Reports the lobby once per visit; the current map ends there.</summary>
+    private bool ConfirmLobby(IReadOnlyList<string> lines)
+    {
+        if (!_lobby.IsLobby(lines))
+        {
+            _lobbyReads = 0;
+            return false;
+        }
+        if (_lobbyReads >= LobbyConfirmReads) return false;
+
+        _lobbyReads++;
+        if (_lobbyReads < LobbyConfirmReads) return false;
+        SetCurrentMap(null);
+        return true;
     }
 
     private MapInfo? Confirm(MatchResult match)

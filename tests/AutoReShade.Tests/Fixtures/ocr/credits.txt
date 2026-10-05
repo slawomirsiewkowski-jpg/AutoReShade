@@ -1,0 +1,7 @@
+GAME CREDITS
+<
+/
+foo
+\
+QO
+BACK [ESC]

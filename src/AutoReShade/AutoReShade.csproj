@@ -13,7 +13,7 @@
     <ApplicationIcon>Assets\AutoReShade.ico</ApplicationIcon>
     <AssemblyName>AutoReShade</AssemblyName>
     <RootNamespace>AutoReShade</RootNamespace>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Product>AutoReShade</Product>
     <Description>Automatic ReShade presets and map callout clocks for Dead by Daylight</Description>
     <Copyright>Copyright (c) 2026 AutoReShade contributors. MIT License.</Copyright>

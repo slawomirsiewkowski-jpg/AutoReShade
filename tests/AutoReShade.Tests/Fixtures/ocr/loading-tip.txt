@@ -1,0 +1,3 @@
+Running Survivors leave scratch marks in the environment that only Killers can see. Use
+them to track Survivor movements.
+Y

@@ -150,6 +150,8 @@
                             <Button DockPanel.Dock="Right" Content="Refresh preset list" Click="OnRefreshPresets" Margin="8,0,0,0" />
                             <ComboBox x:Name="DefaultPresetBox" SelectionChanged="OnDefaultPresetChanged" />
                         </DockPanel>
+                        <CheckBox x:Name="LobbyPresetBox" Content="Switch back to the default preset when the match is over (in the lobby)" Margin="0,10,0,0"
+                                  Checked="OnLobbyPresetChanged" Unchecked="OnLobbyPresetChanged" />
 
                         <TextBlock Style="{StaticResource SectionTitle}" Text="Preset shortcuts in ReShade.ini" />
                         <TextBlock x:Name="ReShadeSyncStatus" TextWrapping="Wrap" Margin="0,0,0,6" />

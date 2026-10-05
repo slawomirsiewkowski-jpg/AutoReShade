@@ -55,6 +55,9 @@ public sealed class AppSettings
     /// <summary>Preset used for maps (and realms) without their own preset.</summary>
     public string? DefaultPreset { get; set; }
 
+    /// <summary>Switch back to the default preset when the player returns to the lobby.</summary>
+    public bool ShouldUseDefaultPresetInLobby { get; set; } = true;
+
     /// <summary>Realm id to preset file. Applies to every map of the realm without its own preset.</summary>
     public Dictionary<string, string> RealmPresets { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
@@ -80,6 +83,10 @@ public sealed class AppSettings
         if (RealmPresets.TryGetValue(map.RealmId, out var realmPreset) && !string.IsNullOrWhiteSpace(realmPreset)) return realmPreset;
         return string.IsNullOrWhiteSpace(DefaultPreset) ? null : DefaultPreset;
     }
+
+    /// <summary>The preset for the lobby, or null to keep the one from the last match.</summary>
+    public string? ResolveLobbyPreset() =>
+        ShouldUseDefaultPresetInLobby && !string.IsNullOrWhiteSpace(DefaultPreset) ? DefaultPreset : null;
 
     public string? ResolveClock(MapInfo map) =>
         MapClocks.TryGetValue(map.Id, out var clock) && !string.IsNullOrWhiteSpace(clock) ? clock : null;

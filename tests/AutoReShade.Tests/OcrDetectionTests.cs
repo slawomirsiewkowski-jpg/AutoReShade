@@ -18,11 +18,13 @@ public sealed class OcrFixture : IDisposable
         Ocr = new TesseractOcr(tessdata, TesseractOcr.AvailableLanguages(tessdata));
         Catalog = MapCatalog.LoadBuiltIn();
         Matcher = new MapNameMatcher(Catalog);
+        Lobby = new LobbyScreenMatcher(Catalog);
     }
 
     public TesseractOcr Ocr { get; }
     public MapCatalog Catalog { get; }
     public MapNameMatcher Matcher { get; }
+    public LobbyScreenMatcher Lobby { get; }
 
     public void Dispose() => Ocr.Dispose();
 }
@@ -48,7 +50,7 @@ public class OcrDetectionTests : IClassFixture<OcrFixture>
     public void DetectsTheMapAtCommonResolutions(int width, int height, string realm, string map, string expectedId)
     {
         using var frame = SyntheticLoadingScreen(width, height, realm, map);
-        var detector = new MapDetector(_fx.Matcher, _fx.Ocr);
+        var detector = new MapDetector(_fx.Matcher, _fx.Lobby, _fx.Ocr);
 
         var result = detector.ProcessFrame(frame, DetectionRegion.Default);
 
@@ -63,7 +65,7 @@ public class OcrDetectionTests : IClassFixture<OcrFixture>
     {
         using var frame = new Bitmap(1920, 1080);
         using (var g = Graphics.FromImage(frame)) g.Clear(Color.FromArgb(12, 10, 10));
-        var detector = new MapDetector(_fx.Matcher, _fx.Ocr);
+        var detector = new MapDetector(_fx.Matcher, _fx.Lobby, _fx.Ocr);
 
         var result = detector.ProcessFrame(frame, DetectionRegion.Default);
 
@@ -75,7 +77,7 @@ public class OcrDetectionTests : IClassFixture<OcrFixture>
     public void SameMapIsReportedOnlyOnce()
     {
         using var frame = SyntheticLoadingScreen(1920, 1080, "Red Forest", "Mother's Dwelling");
-        var detector = new MapDetector(_fx.Matcher, _fx.Ocr);
+        var detector = new MapDetector(_fx.Matcher, _fx.Lobby, _fx.Ocr);
 
         Assert.Equal("mothers-dwelling", detector.ProcessFrame(frame, DetectionRegion.Default).NewlyConfirmed?.Id);
         Assert.Null(detector.ProcessFrame(frame, DetectionRegion.Default).NewlyConfirmed);

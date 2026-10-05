@@ -48,6 +48,7 @@ public sealed class AppController : IDisposable
         Game.Changed += OnGameChanged;
         Game.Tick += OnTick;
         Detection.MapConfirmed += map => Dispatch(() => SelectMap(map, MapSource.Detected));
+        Detection.LobbyConfirmed += () => Dispatch(EnterLobby);
         Detection.FrameProcessed += _ => Dispatch(RaiseStateChanged);
         Presets.StateChanged += RaiseStateChanged;
         Overlay.Adjusted += OnOverlayAdjusted;
@@ -73,6 +74,10 @@ public sealed class AppController : IDisposable
     public MapInfo? CurrentMap { get; private set; }
     public MapSource CurrentMapSource { get; private set; }
     public DateTime? CurrentMapTime { get; private set; }
+
+    /// <summary>When the player got back to the lobby; null while a map is active or before the first lobby.</summary>
+    public DateTime? LobbySince { get; private set; }
+
     public bool UserWantsClock { get; private set; } = true;
     public ApplyResult? LastReShadeResult { get; private set; }
     public bool GameRestartNeeded { get; private set; }
@@ -107,6 +112,7 @@ public sealed class AppController : IDisposable
         CurrentMap = map;
         CurrentMapSource = source;
         CurrentMapTime = DateTime.Now;
+        LobbySince = null;
         if (source == MapSource.Manual) Detection.SetCurrentMap(map);
 
         var clock = Settings.ResolveClock(map);
@@ -119,6 +125,19 @@ public sealed class AppController : IDisposable
             Presets.Request(Settings.ResolvePreset(map));
 
         Tray.SetTooltip($"AutoReShade - {map.DisplayName}");
+        RaiseStateChanged();
+    }
+
+    /// <summary>The match is over: hide the clock until the next map loads and optionally go back to the default preset.</summary>
+    private void EnterLobby()
+    {
+        CurrentMap = null;
+        CurrentMapTime = null;
+        LobbySince = DateTime.Now;
+        Overlay.SetClock(null);
+        if (Settings.PresetSwitchingEnabled)
+            Presets.Request(Settings.ResolveLobbyPreset());
+        Tray.SetTooltip("AutoReShade - in the lobby");
         RaiseStateChanged();
     }
 
